@@ -10,15 +10,18 @@ const { isProduction } = require('../../config/keys');
 // const validateLoginInput = require('../../validations/login');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
+    const users = await User.find();
+
+    // return users
     res.json({
-      message: "GET /api/users"
+       message: users
     });
   });
 
 router.post('/', async function(req, res, next) {
     try {
-        const newUser = new User({userName: 'tvong', email: 'vong@gmail.com', hashedPassword: '123456789'})
+        const newUser = new User({username: 'tvong', email: 'vong@gmail.com', hashedPassword: '123456789'})
         newUser.save()
         console.log('User created')
     } catch(error) {
