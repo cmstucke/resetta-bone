@@ -5,7 +5,7 @@ const messageSchema = Schema({
   role: {
     type: String,
     required: true,
-    enum: [user, bot]
+    enum: ['user', 'bot']
   },
   content: {
     type: String,
