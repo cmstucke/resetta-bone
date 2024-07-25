@@ -1,11 +1,14 @@
-import 'dotenv/config';
-import Groq from "groq-sdk";
+// import 'dotenv/config';
+// import Groq from "groq-sdk";
+require('dotenv').config();
+const Groq = require('groq-sdk');
+
 
 console.log("GROQ_API_KEY:", process.env.GROQ_API_KEY);
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-export async function main() {
+async function main() {
   try {
     console.log("Starting main function...");
     const chatCompletion = await getGroqChatCompletion();
@@ -16,7 +19,7 @@ export async function main() {
   }
 }
 
-export async function getGroqChatCompletion() {
+async function getGroqChatCompletion() {
   return groq.chat.completions.create({
     messages: [
       {
@@ -30,3 +33,5 @@ export async function getGroqChatCompletion() {
 
 // Invoke the main function
 main();
+
+module.exports = { getGroqChatCompletion, main };
