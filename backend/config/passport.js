@@ -65,7 +65,7 @@ options.secretOrKey = secretOrKey;
 // }));
 
 
-// exports.requireUser = passport.authenticate('jwt', { session: false });
+exports.requireUser = passport.authenticate('jwt', { session: false });
 
 
 // exports.restoreUser = (req, res, next) => {

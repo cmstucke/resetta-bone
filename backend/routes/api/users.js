@@ -27,7 +27,7 @@ router.post('/', async function(req, res, next) {
     } catch(error) {
         console.log(error)
     }
-
+    res.json({message: "User successfully created"})
 })
 
 
