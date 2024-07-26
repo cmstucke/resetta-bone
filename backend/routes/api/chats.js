@@ -4,7 +4,17 @@ const mongoose = require('mongoose');
 const Chat = mongoose.model('Chat');
 const { getGroqChatCompletion } = require('../../services/llamaGroq/chatCompletion');
 
-router.get('/chats', async (req, res) => {
+// router.get('/', async (req, res) => {
+
+//   const chats = await Chat.find();
+
+//   res.json({ "chats": chats });
+
+// });
+
+router.get('/', async (req, res) => {
+
+  console.log('YOU ARE HERE NOW');
 
   try {
 
@@ -14,12 +24,13 @@ router.get('/chats', async (req, res) => {
     const newChat = new Chat({
       messages: [
         { role: 'user', content: 'is there a way that i can use groq to call for chat completions from llama 3 specifically?' },
-        { role: 'assistant', content: content },
+        { role: 'bot', content: content },
       ],
     });
 
     await newChat.save();
-    res.json({ message: content }, { status: 201 });
+    // res.json({ message: content }, { status: 201 });
+    res.status(201).json({ "newChat": newChat['messages'] });
 
   } catch (error) {
 

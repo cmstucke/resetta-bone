@@ -24,7 +24,7 @@ async function getGroqChatCompletion() {
     messages: [
       {
         role: "user",
-        content: "is there a way that i can use groq to call for chat completions from llama 3 specifically?",
+        content: "whos is the best husbando in genshin impact?",
       },
     ],
     model: "llama3-8b-8192",

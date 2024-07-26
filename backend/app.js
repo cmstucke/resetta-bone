@@ -49,7 +49,7 @@ app.use(
 // Attach Express routers
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
-app.use('/api/chat', chatsRouter);
+app.use('/api/chats', chatsRouter);
 
 if (isProduction) {
     const path = require('path');
