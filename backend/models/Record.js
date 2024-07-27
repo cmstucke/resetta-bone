@@ -2,34 +2,77 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recordSchema = Schema({
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User"
+  // },
+  smokingStatus: {
+    type: String
   },
-  allergies: {
-    type: String,
-    required: false
+  alcoholConsumption: {
+    type: String
   },
-  heart_rate: {
-    type: String,
-    required: false
-    },
-  blood_pressure: {
-    type: String,
-    required: false
+  exerciseFrequency: {
+    type: String
   },
-  pre_existing_conditions: {
-    type: String,
-    required: false
+  emergencyContacts: [{
+    name: String,
+    phone: String,
+    relationship: String
+  }],
+  familyHistory: [{
+    condition: String,
+    relation: String,
+    notes: String
+  }],
+  labResults: [{
+    testName: String,
+    result: String,
+    date: Date,
+    notes: String
+  }],
+  immunizations: [{
+    vaccine: String,
+    date: Date,
+    boosterRequired: Boolean
+  }],
+  DNR: {
+    type: Boolean
   },
-  medications: {
-    type: String,
-    required: false
+  organDonor: {
+    type: Boolean
   },
-  procedures: {
-    type: String,
-    required: false
-  },
+  allergies: [{
+    allergy: String,
+    reaction: String,
+    severity: String,
+  }],
+  heartRates: [{
+    date: Date,
+    time: String,
+    heartRate: Number,
+  }],
+  bloodPressures: [{
+    date: Date,
+    time: String,
+    systolic: Number,
+    diastolic: Number,
+  }],
+  preExistingConditions: [{
+    condition: String,
+    diagnosisDate: Date,
+    notes: String,
+  }],
+  medications: [{
+    medication: String,
+    dosage: String,
+    frequency: String,
+  }],
+  procedures: [{
+    procedure: String,
+    date: Date,
+    surgeon: String,
+  }],
 }, {
   timestamps: false
 });

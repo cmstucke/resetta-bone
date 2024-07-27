@@ -2,18 +2,33 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Record = mongoose.model("Record");
+const User = mongoose.model("User");
+
 const { requireUser } = require('../../config/passport');
 
 
-//get current user's record
+//all records
+router.get('/', async function(req, res, next) {
+    try {
+        const records = await Record.find();
+        return res.json(records);
+      } catch(err) {
+        const error = new Error('records not found');
+        error.statusCode = 404;
+        error.errors = { message: "No records found" };
+        return next(error);
+      }
+});
+
+//get record by id
 router.get('/:id', async function(req, res, next) {
     try {
-        const report = await Report.findById(req.params.id);
-        return res.json(report);
+        const record = await Record.findById(req.params.id);
+        return res.json(record);
       } catch(err) {
-        const error = new Error('Report not found');
+        const error = new Error('Record not found');
         error.statusCode = 404;
-        error.errors = { message: "No report found" };
+        error.errors = { message: "No record found" };
         return next(error);
       }
 });
@@ -22,26 +37,54 @@ router.get('/:id', async function(req, res, next) {
 //get current user's record
 router.get('/', requireUser, async function(req, res, next) {
     try {
-        const report = await Report.find({user: req.user})
-        return res.json(report)
+        const record = await Record.find({user: req.user})
+        return res.json(record)
       } catch(err) {
-        const error = new Error('Report not found');
+        const error = new Error('Record not found');
         error.statusCode = 404;
-        error.errors = { message: "No report found for user" };
+        error.errors = { message: "No recordfound for user" };
         return next(error);
       }
 });
 
 //create record for current user
-router.post('/', requireUser, async (req, res) => {
+// router.post('/', requireUser, async (req, res) => {
+router.post('/', async (req, res, next) => {
+
+    const user = req.user ? req.user : User.find({username: "tvong"})
     try {
-        const {allergies, heart_rate, blood_pressure, pre_existing_conditions, medications, procedures} = req.body;
+        const {
+            smokingStatus,
+            alcoholConsumption,
+            exerciseFrequency,
+            emergencyContacts,
+            familyHistory,
+            labResults,
+            immunizations,
+            DNR,
+            organDonor,
+            allergies, 
+            heartRates, 
+            bloodPressures, 
+            preExistingConditions, 
+            medications, 
+            procedures,
+            } = req.body;
         const newRecord = new Record ({
-            user: req.user,
+            // user: user,
+            smokingStatus,
+            alcoholConsumption,
+            exerciseFrequency,
+            emergencyContacts,
+            familyHistory,
+            labResults,
+            immunizations,
+            DNR,
+            organDonor,
             allergies,
-            heart_rate,
-            blood_pressure,
-            pre_existing_conditions,
+            heartRates,
+            bloodPressures,
+            preExistingConditions,
             medications,
             procedures
         });
@@ -50,10 +93,11 @@ router.post('/', requireUser, async (req, res) => {
         return res.json(record);
   
     }catch(err){
-      const error = new Error('Record not saved');
-      error.statusCode = 404;
-      error.errors = { message: "Record was unable to be saved" };
-      return next(error);
+        console.log(err)
+        const error = new Error('Record not saved');
+        error.statusCode = 404;
+        error.errors = { message: "Record was unable to be saved" };
+        return next(error);
     }
 });
 
@@ -69,11 +113,36 @@ router.patch('/:id', requireUser, async (req, res) => {
         return next(err);
       }
     try{
-        const {allergies, heart_rate, blood_pressure, pre_existing_conditions, medications, procedures} = req.body;
+        const {
+            smokingStatus,
+            alcoholConsumption,
+            exerciseFrequency,
+            emergencyContacts,
+            familyHistory,
+            labResults,
+            immunizations,
+            DNR,
+            organDonor,
+            allergies, 
+            heartRates, 
+            bloodPressures, 
+            preExistingConditions, 
+            medications, 
+            procedures
+        } = req.body;
+        record.smokingStatus = smokingStatus || record.smokingStatus;
+        record.alcoholConsumption = alcoholConsumption || record.alcoholConsumption;
+        record.exerciseFrequency = exerciseFrequency || record.exerciseFrequency;
+        record.emergencyContacts = emergencyContacts || record.emergencyContacts;
+        record.familyHistory = familyHistory || record.familyHistory;
+        record.labResults = labResults || record.labResults;
+        record.immunizations = immunizations || record.immunizations;
+        record.DNR = DNR || record.DNR;
+        record.organDonor = organDonor || record.organDonor;
         record.allergies = allergies || record.allergies;
-        record.heart_rate = heart_rate || record.heart_rate;
-        record.blood_pressure = blood_pressure || record.blood_pressure;
-        record.pre_existing_conditions = pre_existing_conditions || record.pre_existing_conditions;
+        record.heartRate = heartRates || record.heartRates;
+        record.bloodPressure = bloodPressures || record.bloodPressures;
+        record.preExistingConditions = preExistingConditions || record.preExistingConditions;
         record.medications = medications || record.medications;
         record.procedures = procedures || record.procedures;
 
