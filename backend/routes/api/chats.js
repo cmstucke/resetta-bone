@@ -4,6 +4,40 @@ const mongoose = require('mongoose');
 const Chat = mongoose.model('Chat');
 const { getGroqChatCompletion } = require('../../services/llamaGroq/chatCompletion');
 
+router.put('/:id', async (req, res) => {
+
+  const { id } = req.params;
+  console.log('ID:', id);
+  // console.log('REQ PARAMS:', req.params);
+  const { content } = req.body;
+
+  try {
+
+    const chat = await Chat.findById(id);
+    
+    if (!chat)
+      return res.status(404).json({ "error": "Chat not found." });
+
+    const chatCompletion = await getGroqChatCompletion(content, chat.messages);
+    const modelRes = chatCompletion.choices[0]?.message?.content || "No response.";
+
+    chat.messages.push({ role: 'user', content: content });
+    chat.messages.push({ role: 'bot', content: modelRes });
+
+    await chat.save();
+
+    res.status(200).json({ "updatedChat": chat });
+
+  } catch (error) {
+
+    console.error("Error updating chat messages:", error);
+    res.status(500).json({ "error": "Error updating chat messages." });
+
+  };
+
+
+});
+
 router.get('/', async (req, res) => {
 
   const chats = await Chat.find();
@@ -16,15 +50,20 @@ router.post('/', async (req, res) => {
 
   // console.log('YOU ARE HERE NOW');
 
+  // const csrfResponse = await fetch('/csrf/restore')
+
+  const { content } = req.body;
+  console.log('CONTENT:', content);
+
   try {
 
-    const chatCompletion = await getGroqChatCompletion();
-    const content = chatCompletion.choices[0]?.message?.content || "No content received";
+    const chatCompletion = await getGroqChatCompletion(content);
+    const botRes = chatCompletion.choices[0]?.message?.content || "No response.";
     
     const newChat = new Chat({
       messages: [
-        { role: 'user', content: 'is there a way that i can use groq to call for chat completions from llama 3 specifically?' },
-        { role: 'bot', content: content },
+        { role: 'user', content: content },
+        { role: 'bot', content: botRes },
       ],
     });
 
@@ -34,7 +73,7 @@ router.post('/', async (req, res) => {
   } catch (error) {
 
     console.error('Error fetching chat completion:', error);
-    res.status(500).json({ error: 'Error fetching chat completion' });
+    res.status(500).json({ error: 'Error fetching chat completion.' });
 
   };
 
