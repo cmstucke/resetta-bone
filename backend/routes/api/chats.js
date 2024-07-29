@@ -4,17 +4,17 @@ const mongoose = require('mongoose');
 const Chat = mongoose.model('Chat');
 const { getGroqChatCompletion } = require('../../services/llamaGroq/chatCompletion');
 
-// router.get('/', async (req, res) => {
-
-//   const chats = await Chat.find();
-
-//   res.json({ "chats": chats });
-
-// });
-
 router.get('/', async (req, res) => {
 
-  console.log('YOU ARE HERE NOW');
+  const chats = await Chat.find();
+
+  res.json({ "chats": chats });
+
+});
+
+router.post('/', async (req, res) => {
+
+  // console.log('YOU ARE HERE NOW');
 
   try {
 
@@ -29,7 +29,6 @@ router.get('/', async (req, res) => {
     });
 
     await newChat.save();
-    // res.json({ message: content }, { status: 201 });
     res.status(201).json({ "newChat": newChat['messages'] });
 
   } catch (error) {
