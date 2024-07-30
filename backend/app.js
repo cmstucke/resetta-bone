@@ -9,6 +9,7 @@ const { isProduction } = require('./config/keys');
 
 require('./models/User');
 require('./models/Chat');
+require('./models/Record');
 
 require('./config/passport');
 
@@ -17,6 +18,7 @@ const passport = require('passport');
 const usersRouter = require('./routes/api/users');
 const csrfRouter = require('./routes/api/csrf');
 const chatsRouter = require('./routes/api/chats');
+const recordsRouter = require('./routes/api/records');
 
 const app = express();
 
@@ -50,6 +52,7 @@ app.use(
 app.use('/api/users', usersRouter);
 app.use('/api/csrf', csrfRouter);
 app.use('/api/chats', chatsRouter);
+app.use('/api/records', recordsRouter);
 
 if (isProduction) {
     const path = require('path');
