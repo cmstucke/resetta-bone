@@ -2,10 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recordSchema = Schema({
-  // user: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "User"
-  // },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  dateOfBirth: {
+    type: Date
+  },
+  biologicalGender: {
+    type: String
+  },
   smokingStatus: {
     type: String
   },
