@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Splash from './components/Splash';
+import Chat from './components/chat';
 import configureStore from './store/store';
 import { Provider, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -17,6 +18,7 @@ function App(){
   return loaded && (
     <View style={styles.container}>
       <Splash />
+      <Chat />
       <StatusBar style="auto" />
     </View>
   );

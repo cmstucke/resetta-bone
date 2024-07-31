@@ -5,10 +5,12 @@ import session from './session';
 import errors from './errors';
 import entities from './entities';
 import ui from './ui';
+import chats from './chats';
 
 const rootReducer = combineReducers({
   session,
   errors,
+  chats
 //   entities,
 //   ui
 });
