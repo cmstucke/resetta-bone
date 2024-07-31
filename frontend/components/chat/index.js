@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatsThunk, addChatThunk, editChatThunk } from '../../store/chats';
-import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, FlatList, StyleSheet, Pressable } from 'react-native';
 
 const Chat = () => {
 
@@ -17,6 +17,7 @@ const Chat = () => {
   }, []);
 
   const [chatInput, setChatInput] = useState('');
+  console.log('CHAT INPUT:', chatInput);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -41,13 +42,13 @@ const Chat = () => {
           </Text>
         )}
       />}
+      </View> */}
       <TextInput
-        value={input}
-        onChangeText={setInput}
+        value={chatInput}
+        onChangeText={setChatInput}
         placeholder="Type your message"
       />
-      <Button title="Send" onPress={sendMessage} />
-    </View> */}
+      <Button title="Send" onPress={handleSubmit} />
     </>
   );
 };

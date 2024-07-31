@@ -29,7 +29,7 @@ export const getChatsThunk = () => async dispatch => {
   
   try {
 
-    const res = await jwtFetch('/api/chats');
+    const res = await jwtFetch('/api/chats/');
 
     if (res.ok) {
       const data = await res.json();
@@ -52,7 +52,7 @@ export const addChatThunk = message => async dispatch => {
 
   try {
 
-    const res = await jwtFetch('/api/chats', {
+    const res = await jwtFetch('/api/chats/', {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(message)
@@ -83,7 +83,7 @@ export const editChatThunk = message => async dispatch => {
 
   try {
 
-    const res = await jwtFetch('/api/chats', {
+    const res = await jwtFetch('/api/chats/', {
       method: "PUT",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(message)
