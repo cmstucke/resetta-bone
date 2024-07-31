@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Splash from './components/Splash';
+import Splash from './src/components/Splash';
+import RecordForm from './src/components/RecordForm'
 import configureStore from './store/store';
 import { Provider, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -16,7 +17,7 @@ function App(){
   }, [dispatch]);
   return loaded && (
     <View style={styles.container}>
-      <Splash />
+      <RecordForm />
       <StatusBar style="auto" />
     </View>
   );

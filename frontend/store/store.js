@@ -9,7 +9,7 @@ import ui from './ui';
 const rootReducer = combineReducers({
   session,
   errors,
-//   entities,
+  entities,
 //   ui
 });
 

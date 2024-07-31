@@ -1,4 +1,5 @@
 import jwtFetch from './jwt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
@@ -45,7 +46,11 @@ const startSession = (userInfo, route) => async dispatch => {
       body: formData
     });
     const { user, token } = await res.json();
-    localStorage.setItem('jwtToken', token);
+    if(navigator.userAgent){
+      localStorage.setItem('jwtToken', token);
+    } else {
+      await AsyncStorage.setItem('jwtToken', token);
+    }
     return dispatch(receiveCurrentUser(user));
   } catch(err) {
     const res = await err.json();
@@ -55,18 +60,25 @@ const startSession = (userInfo, route) => async dispatch => {
   }
 };
 
-export const logout = () => dispatch => {
-  localStorage.removeItem('jwtToken');
+export const logout = () => async dispatch => {
+  if(navigator.userAgent){
+    localStorage.removeItem('jwtToken');
+  } else {
+    await AsyncStorage.removeItem('jwtToken');
+  }
+  
+  
   dispatch(logoutUser());
 };
 
 export const getCurrentUser = () => async dispatch => {
+  console.log('agent', navigator.userAgent)
   try{
     const res = await jwtFetch('/api/users/current');
     const user = await res.json();
     return dispatch(receiveCurrentUser(user));
   }catch(err){
-    console.log("eerrr",err)
+    console.log(err)
   }
 };
 
