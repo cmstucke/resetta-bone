@@ -88,11 +88,11 @@ const validateLogin = [
 
   router.get('/current', restoreUser, (req, res) => {
     if (!isProduction) {
-      // In development, allow React server to gain access to the CSRF token
-      // whenever the current user information is first loaded into the
-      // React application
-      const csrfToken = req.csrfToken();
-      res.cookie("CSRF-TOKEN", csrfToken);
+      // // In development, allow React server to gain access to the CSRF token
+      // // whenever the current user information is first loaded into the
+      // // React application
+      // const csrfToken = req.csrfToken();
+      // res.cookie("CSRF-TOKEN", csrfToken);
     }
     if (!req.user) return res.json(null);
     res.json({

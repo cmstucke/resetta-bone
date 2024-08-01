@@ -39,17 +39,17 @@ if (!isProduction) {
   }));
 }
 
-// Set the _csrf token and create req.csrfToken method to generate a hashed
-// CSRF token
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true
-    }
-  })
-);
+// // Set the _csrf token and create req.csrfToken method to generate a hashed
+// // CSRF token
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true
+//     }
+//   })
+// );
 
 // Attach Express routers
 app.use('/api/users', usersRouter);

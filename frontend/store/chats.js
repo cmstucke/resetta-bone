@@ -29,7 +29,7 @@ export const getChatsThunk = () => async dispatch => {
   
   try {
 
-    const res = await jwtFetch('/api/chats/');
+    const res = await fetch('/api/chats/');
 
     if (res.ok) {
       const data = await res.json();
@@ -50,6 +50,7 @@ export const getChatsThunk = () => async dispatch => {
 
 export const addChatThunk = content => async dispatch => {
 
+  console.log('CONTENT ARG:', content);
   try {
 
     const res = await jwtFetch('/api/chats/', {
@@ -59,13 +60,15 @@ export const addChatThunk = content => async dispatch => {
     });
 
     if (res.ok) {
-
+    
+      console.log('RES OK');
       const data = await res.json();
       dispatch(addChat(data));
       return data;
-
+      
     } else {
-
+      
+      console.log('RES NOT OK');
       const data = await res.json();
       // console.error('Error in chat response.', data);
       console.log('Error in chat response.', data);
