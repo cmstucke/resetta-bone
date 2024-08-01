@@ -28,15 +28,18 @@ export const clearSessionErrors = () => ({
   type: CLEAR_SESSION_ERRORS
 });
 
-export const signup = user => startSession(user, 'api/users/register');
-export const login = user => startSession(user, 'api/users/login');
+export const signup = user => startSession(user, '/api/users/register');
+export const login = user => startSession(user, '/api/users/login');
 
 const startSession = (userInfo, route) => async dispatch => {
+  console.log('hello')
   const { image, username, password, email } = userInfo;
   const formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-  formData.append("email", email);
+  // formData.append("username", username);
+  // formData.append("password", password);
+  // formData.append("email", email);
+  formData.append("password", '123456');
+  formData.append("email", 'bob@bob.com');
 
   if (image) formData.append("image", image);
   try {  
@@ -53,6 +56,7 @@ const startSession = (userInfo, route) => async dispatch => {
     }
     return dispatch(receiveCurrentUser(user));
   } catch(err) {
+    console.log(err)
     const res = await err.json();
     if (res.statusCode === 400) {
       return dispatch(receiveErrors(res.errors));
@@ -72,7 +76,7 @@ export const logout = () => async dispatch => {
 };
 
 export const getCurrentUser = () => async dispatch => {
-  console.log('agent', navigator.userAgent)
+  // console.log('agent', navigator.userAgent)
   try{
     const res = await jwtFetch('/api/users/current');
     const user = await res.json();
