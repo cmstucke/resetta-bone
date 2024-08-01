@@ -29,6 +29,7 @@ export const getChatsThunk = () => async dispatch => {
   
   try {
 
+    console.log('GET CHATS THUNK');
     const res = await fetch('/api/chats/');
 
     if (res.ok) {
