@@ -21,7 +21,6 @@ async function main() {
 
 async function getGroqChatCompletion(content, prev) {
 
-  // console.log('PREV:', prev);
   let prevMessages = '';
   const newMessage = [];
   

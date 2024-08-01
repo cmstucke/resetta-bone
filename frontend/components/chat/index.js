@@ -17,7 +17,7 @@ const Chat = () => {
   }, []);
 
   const [chatInput, setChatInput] = useState('');
-  console.log('CHAT INPUT:', chatInput);
+  // console.log('CHAT INPUT:', chatInput);
 
   const handleSubmit = async e => {
     e.preventDefault();
