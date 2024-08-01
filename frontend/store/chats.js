@@ -48,14 +48,14 @@ export const getChatsThunk = () => async dispatch => {
 
 };
 
-export const addChatThunk = message => async dispatch => {
+export const addChatThunk = content => async dispatch => {
 
   try {
 
     const res = await jwtFetch('/api/chats/', {
       method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(message)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(content)
     });
 
     if (res.ok) {
@@ -67,13 +67,15 @@ export const addChatThunk = message => async dispatch => {
     } else {
 
       const data = await res.json();
-      console.error('Error in chat response.', data);
+      // console.error('Error in chat response.', data);
+      console.log('Error in chat response.', data);
 
     };
 
   } catch (error) {
 
-    console.error('Error fetching chat.', data);
+    // console.error('Error fetching chat.', data);
+    console.log('Error fetching chat.', data);
 
   };
 

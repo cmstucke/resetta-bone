@@ -22,9 +22,10 @@ const Chat = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      dispatch(addChatThunk(chatInput));
+      dispatch(addChatThunk({ content: chatInput}));
     } catch (error) {
-      console.error('Error submitting chat input.', error);
+      // console.error('Error submitting chat input.', error);
+      console.log('Error submitting chat input.', error);
     };
   };
 

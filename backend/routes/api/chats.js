@@ -50,10 +50,8 @@ router.post('/', async (req, res) => {
 
   // console.log('YOU ARE HERE NOW');
 
-  // const csrfResponse = await fetch('/csrf/restore')
-
   const { content } = req.body;
-  console.log('CONTENT:', content);
+  // console.log('CONTENT:', content);
 
   try {
 
