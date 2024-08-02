@@ -1,4 +1,5 @@
 import jwtFetch from './jwt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
@@ -10,7 +11,7 @@ const receiveCurrentUser = currentUser => ({
   type: RECEIVE_CURRENT_USER,
   currentUser
 });
-  
+
 // Dispatch receiveErrors to show authentication errors on the frontend.
 const receiveErrors = errors => ({
   type: RECEIVE_SESSION_ERRORS,
@@ -27,18 +28,18 @@ export const clearSessionErrors = () => ({
   type: CLEAR_SESSION_ERRORS
 });
 
-export const signup = user => startSession(user, 'api/users/register');
-export const login = user => startSession(user, 'api/users/login');
+export const signup = user => startSession(user, '/api/users/register');
+export const login = user => startSession(user, '/api/users/login');
 
 const startSession = (userInfo, route) => async dispatch => {
-  const { image, username, password, email } = userInfo;
+  const { password, email } = userInfo;
   const formData = new FormData();
-  formData.append("username", username);
+  // formData.append("username", username);
   formData.append("password", password);
   formData.append("email", email);
 
-  if (image) formData.append("image", image);
-  try {  
+  // if (image) formData.append("image", image);
+  try {
     const res = await jwtFetch(route, {
       method: "POST",
       // body: JSON.stringify(userInfo)
@@ -48,10 +49,11 @@ const startSession = (userInfo, route) => async dispatch => {
     localStorage.setItem('jwtToken', token);
     return dispatch(receiveCurrentUser(user));
   } catch(err) {
-    const res = await err.json();
-    if (res.statusCode === 400) {
-      return dispatch(receiveErrors(res.errors));
-    }
+    console.log("Hello", err)
+    // const res = await err.json();
+    // if (res.statusCode === 400) {
+    //   return dispatch(receiveErrors(res.errors));
+    // }
   }
 };
 
@@ -86,7 +88,6 @@ const sessionReducer = (state = initialState, action) => {
 };
 
 export default sessionReducer;
-
 
 
 const nullErrors = null;

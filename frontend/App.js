@@ -5,6 +5,7 @@ import configureStore from './store/store';
 import { Provider, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getCurrentUser } from './store/session';
+import Signup from './components/Signup';
 
 let store = configureStore({});
 
@@ -16,7 +17,7 @@ function App(){
   }, [dispatch]);
   return loaded && (
     <View style={styles.container}>
-      <Splash />
+      <Signup/>
       <StatusBar style="auto" />
     </View>
   );

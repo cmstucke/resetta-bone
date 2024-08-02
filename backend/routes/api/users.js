@@ -46,14 +46,14 @@ const validateLogin = [
 
 // Passed in handValidtionErrors middleware that we created
 
-  router.post('/signup', validateSignup, async function(req, res, next) {
+  router.post('/register', validateSignup, async function(req, res, next) {
     const {email, password} = req.body
 
     const emailExists = await User.findOne({email: email})
 
     if(emailExists) {
         const err = new Error('Email is already associated with another account.')
-        err.status = 403
+        err.status = 450
         err.email = 'Email is already associated with another account.'
         return next(err)
     } else {

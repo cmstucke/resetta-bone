@@ -4,14 +4,25 @@ import { useState } from 'react';
 import {useDispatch} from 'react-redux'
 
 export default function Splash() {
-    return (
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  return (
+    <View>
       <View>
-        <View>
-          <Pressable>
-            <Text>Log in</Text>
-          </Pressable>
-        </View>
-        <StatusBar style="auto" />
+        <Pressable>
+          <Text>Sign Up</Text>
+        </Pressable>
       </View>
-    );
-  }
+      <View>
+        <Text>Already a member? </Text>
+      </View>
+      <StatusBar style="auto" />
+    </View>
+  );
+}
+
+  const styles = StyleSheet.create({
+
+  })
