@@ -6,6 +6,7 @@ const { getGroqChatCompletion } = require('../../services/llamaGroq/chatCompleti
 
 router.put('/:id', async (req, res) => {
 
+  console.log('CHAT PUT API');
   const { id } = req.params;
   const { content } = req.body;
 
@@ -36,6 +37,15 @@ router.put('/:id', async (req, res) => {
 
 });
 
+router.get('/:id', async (req, res) => {
+
+  const { id } = req.params;
+  const chat = await Chat.findById(id);
+
+  res.json({ "chat": chat });
+
+});
+
 router.get('/', async (req, res) => {
 
   const chats = await Chat.find();
@@ -61,7 +71,7 @@ router.post('/', async (req, res) => {
     });
 
     await newChat.save();
-    res.status(201).json({ "newChat": newChat['messages'] });
+    res.status(201).json({ "newChat": newChat });
 
   } catch (error) {
 

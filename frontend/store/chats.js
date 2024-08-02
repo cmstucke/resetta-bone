@@ -48,6 +48,29 @@ export const getChatsThunk = () => async dispatch => {
 
 };
 
+export const getCurrentChatThunk = chatId => async dispatch => {
+  
+  try {
+
+    const res = await jwtFetch(`/api/chats/${chatId}`);
+
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(getChats(data));
+      return data;
+    } else {
+      const data = await res.json();
+      console.error('Error in chat response.', data);
+    };
+
+  } catch (error) {
+
+    console.error('Error fetching chat.', error);
+
+  };
+
+};
+
 export const addChatThunk = content => async dispatch => {
 
   try {
@@ -81,21 +104,25 @@ export const addChatThunk = content => async dispatch => {
 
 };
 
-export const editChatThunk = message => async dispatch => {
+export const editChatThunk = (id, content) => async dispatch => {
+
+  // console.log('ID:', id);
+  // console.log('CONTENT:', content);
 
   try {
 
-    const res = await jwtFetch('/api/chats/', {
+    const res = await jwtFetch(`/api/chats/${id}`, {
       method: "PUT",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(message)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(content)
     });
 
     if (res.ok) {
 
-      const data = await res.json();
-      dispatch(editChat(data));
-      return data;
+      const { updatedChat } = await res.json();
+      // console.log('DATA:', updatedChat);
+      dispatch(editChat(updatedChat));
+      return updatedChat;
 
     } else {
 

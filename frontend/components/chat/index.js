@@ -18,39 +18,69 @@ const Chat = () => {
 
   const [chatInput, setChatInput] = useState('');
   // console.log('CHAT INPUT:', chatInput);
+  const [currChat, setCurrChat] = useState(null);
+  // console.log('CURRENT CHAT ID:', currChat);
 
-  const handleSubmit = async e => {
+  const handleCreate = async e => {
     e.preventDefault();
-    dispatch(addChatThunk({ content: chatInput}));
-    // try {
-    //   dispatch(addChatThunk({ content: chatInput}));
-    // } catch (error) {
-    //   // console.error('Error submitting chat input.', error);
-    //   console.log('Error submitting chat input.', error);
-    // };
+    
+    let postRes;
+    try {
+      postRes = await dispatch(addChatThunk({ content: chatInput}));
+    } catch (error) {
+      console.log('Error submitting chat input.', error);
+    };
+    
+    if (postRes) {
+      const { newChat } = postRes;
+      setCurrChat(newChat);
+    };
+    
+  };
+  
+  const handleEdit = async e => {
+    e.preventDefault();
+
+    let editRes;
+    try {
+      editRes = await dispatch(editChatThunk(currChat._id, { content: chatInput }));
+    } catch (error) {
+      console.log('Error submitting chat input.', error);
+    };
+
+    if (editRes) {
+      setCurrChat({ ...editRes, messages: editRes.messages });
+    };
+
   };
 
   return (
     <>
-    {/* <View>
-      {chats?.currentChat
-      &&
+    {currChat &&
+      <View>
       <FlatList
-        data={currentChat.messages}
+        data={currChat.messages}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <Text style={item.role === 'user' ? styles.userMessage : styles.botMessage}>
+          <Text>
             {item.content}
           </Text>
         )}
-      />}
-      </View> */}
+      />
+      </View>}
       <TextInput
         value={chatInput}
         onChangeText={setChatInput}
         placeholder="Type your message"
       />
-      <Button title="Send" onPress={handleSubmit} />
+      <Pressable
+        title="Send"
+        onPress={
+          currChat
+            ? handleEdit
+            : handleCreate
+        }
+      />
     </>
   );
 };
