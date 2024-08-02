@@ -73,7 +73,7 @@ const Chat = () => {
         onChangeText={setChatInput}
         placeholder="Type your message"
       />
-      <Pressable
+      <Button
         title="Send"
         onPress={
           currChat
