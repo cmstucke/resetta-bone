@@ -36,7 +36,6 @@ async function getGroqChatCompletion(content, prev) {
     role: 'user',
     content: prevMessages,
   });
-  console.log('PREV MESSAGES:', newMessage);
 
   return groq.chat.completions.create({
     messages: newMessage,
