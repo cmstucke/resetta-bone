@@ -1,4 +1,5 @@
 import jwtFetch from './jwt';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
@@ -27,15 +28,18 @@ export const clearSessionErrors = () => ({
   type: CLEAR_SESSION_ERRORS
 });
 
-export const signup = user => startSession(user, 'api/users/register');
-export const login = user => startSession(user, 'api/users/login');
+export const signup = user => startSession(user, '/api/users/register');
+export const login = user => startSession(user, '/api/users/login');
 
 const startSession = (userInfo, route) => async dispatch => {
+  console.log('hello')
   const { image, username, password, email } = userInfo;
   const formData = new FormData();
-  formData.append("username", username);
-  formData.append("password", password);
-  formData.append("email", email);
+  // formData.append("username", username);
+  // formData.append("password", password);
+  // formData.append("email", email);
+  formData.append("password", '123456');
+  formData.append("email", 'bob@bob.com');
 
   if (image) formData.append("image", image);
   try {  
@@ -45,9 +49,14 @@ const startSession = (userInfo, route) => async dispatch => {
       body: formData
     });
     const { user, token } = await res.json();
-    localStorage.setItem('jwtToken', token);
+    if(navigator.userAgent){
+      localStorage.setItem('jwtToken', token);
+    } else {
+      await AsyncStorage.setItem('jwtToken', token);
+    }
     return dispatch(receiveCurrentUser(user));
   } catch(err) {
+    console.log(err)
     const res = await err.json();
     if (res.statusCode === 400) {
       return dispatch(receiveErrors(res.errors));
@@ -55,18 +64,25 @@ const startSession = (userInfo, route) => async dispatch => {
   }
 };
 
-export const logout = () => dispatch => {
-  localStorage.removeItem('jwtToken');
+export const logout = () => async dispatch => {
+  if(navigator.userAgent){
+    localStorage.removeItem('jwtToken');
+  } else {
+    await AsyncStorage.removeItem('jwtToken');
+  }
+  
+  
   dispatch(logoutUser());
 };
 
 export const getCurrentUser = () => async dispatch => {
+  // console.log('agent', navigator.userAgent)
   try{
     const res = await jwtFetch('/api/users/current');
     const user = await res.json();
     return dispatch(receiveCurrentUser(user));
   }catch(err){
-    console.log("eerrr",err)
+    console.log(err)
   }
 };
 

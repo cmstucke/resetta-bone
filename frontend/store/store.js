@@ -10,8 +10,8 @@ import chats from './chats';
 const rootReducer = combineReducers({
   session,
   errors,
-  chats
-//   entities,
+  chats,
+  entities,
 //   ui
 });
 

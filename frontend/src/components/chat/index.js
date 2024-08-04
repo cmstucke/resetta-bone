@@ -1,7 +1,7 @@
 // import jwtFetch from '../../store/jwt';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getChatsThunk, addChatThunk, editChatThunk } from '../../store/chats';
+import { getChatsThunk, addChatThunk, editChatThunk } from '../../../store/chats';
 import { View, Text, TextInput, Button, FlatList, StyleSheet, Pressable } from 'react-native';
 
 const Chat = () => {
