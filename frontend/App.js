@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Splash from './src/components/Splash';
 import RecordForm from './src/components/RecordForm'
+import NavButtons from './src/components/NavButtons';
 import configureStore from './store/store';
 import { Provider, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -19,6 +20,7 @@ function App(){
     <View style={styles.container}>
       <RecordForm />
       <StatusBar style="auto" />
+      <NavButtons />
     </View>
   );
 
@@ -41,3 +43,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

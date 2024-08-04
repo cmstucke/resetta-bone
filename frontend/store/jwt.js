@@ -1,4 +1,6 @@
 import config from "../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from 'react-native';
 
 function getCookie(cookieName) {
     const cookies = document.cookie.split(';');
@@ -7,8 +9,7 @@ function getCookie(cookieName) {
         if (name.trim() === cookieName) return value;
     }
     return null;
-  }
-  
+}
   
 async function jwtFetch(url, options = {}) {
     // Set options.method to 'GET' if there is no method.
@@ -17,25 +18,30 @@ async function jwtFetch(url, options = {}) {
     options.headers = options.headers || {};
       // Set the "Authorization" header to the value of "jwtToken" in localStorage.
       let jwtToken;
-      if(navigator.userAgent){
+      if(Platform.OS === 'web'){
         jwtToken = localStorage.getItem('jwtToken');
       } else {
         jwtToken = await AsyncStorage.getItem('jwtToken');
       }
+      console.log('token', jwtToken)
+      
       if (jwtToken) options.headers["Authorization"] = 'Bearer ' + jwtToken;
-    // If the options.method is not 'GET', then set the "Content-Type" header to
-    // "application/json".
-    if (options.method.toUpperCase() !== "GET") {
-      if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
-        options.headers["Content-Type"] = "application/json";
+      // If the options.method is not 'GET', then set the "Content-Type" header to
+      // "application/json".
+      if (options.method.toUpperCase() !== "GET") {
+        if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
+          options.headers["Content-Type"] = "application/json";
+        }
+        // options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN"); 
+        
       }
-      options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN"); 
-    }
-  
-    // Call fetch with the url and the updated options hash.
-    // const res = await fetch(`http://localhost:5001${url}`, options);
-
-    const res = await fetch(`${config.apiUrl}${url}`, options);
+      
+      console.log('user',`${url}`)
+      // Call fetch with the url and the updated options hash.
+      // const res = await fetch(`http://localhost:5001${url}`, options);
+      const res = await fetch(`http://172.20.159.10:5001${url}`, options);
+      // const res = await fetch(url, options);
+      console.log('res', res)
   
     // If the response status code is 400 or above, then throw an error with the
     // error being the response.
