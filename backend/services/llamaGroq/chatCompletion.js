@@ -1,5 +1,3 @@
-// import 'dotenv/config';
-// import Groq from "groq-sdk";
 require('dotenv').config();
 const Groq = require('groq-sdk');
 

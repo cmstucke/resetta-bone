@@ -1,4 +1,3 @@
-// import jwtFetch from '../../store/jwt';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatsThunk, addChatThunk, editChatThunk } from '../../../store/chats';
@@ -17,9 +16,7 @@ const Chat = () => {
   }, []);
 
   const [chatInput, setChatInput] = useState('');
-  // console.log('CHAT INPUT:', chatInput);
   const [currChat, setCurrChat] = useState(null);
-  // console.log('CURRENT CHAT ID:', currChat);
 
   const handleCreate = async e => {
     e.preventDefault();
