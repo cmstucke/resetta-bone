@@ -1,0 +1,80 @@
+{
+  "firstName": "Taylor",
+  "lastName": "Musolf",
+  "dateOfBirth": "4-26-1988",
+  "biologicalGender": "M",
+  "allergies": [
+      {
+      "allergy": "Peanuts",
+      "reaction": "Anaphylaxis",
+      "severity": "Severe"
+      },
+      {
+      "allergy": "Penicillin",
+      "reaction": "Rash",
+      "severity": "Moderate"
+      }
+  ],
+  "heartRates": [
+      {
+      "date": "2023-07-15",
+      "time": "08:00 AM",
+      "heartRate": 72
+      },
+      {
+      "date": "2023-07-16",
+      "time": "10:00 AM",
+      "heartRate": 80
+      }
+  ],
+  "bloodPressures": [
+      {
+      "date": "2023-07-15",
+      "time": "08:00 AM",
+      "systolic": 120,
+      "diastolic": 80
+      },
+      {
+      "date": "2023-07-16",
+      "time": "10:00 AM",
+      "systolic": 130,
+      "diastolic": 85
+      }
+  ],
+  "preExistingConditions": [
+      {
+      "condition": "Diabetes Type 2",
+      "diagnosisDate": "2019-03-20",
+      "notes": "Managed with medication and diet"
+      },
+      {
+      "condition": "Hypertension",
+      "diagnosisDate": "2020-06-15",
+      "notes": "Regular monitoring required"
+      }
+  ],
+  "medications": [
+      {
+      "medication": "Metformin",
+      "dosage": "500 mg",
+      "frequency": "Twice daily"
+      },
+      {
+      "medication": "Lisinopril",
+      "dosage": "10 mg",
+      "frequency": "Once daily"
+      }
+  ],
+  "procedures": [
+      {
+      "procedure": "Appendectomy",
+      "date": "2021-11-10",
+      "surgeon": "Dr. Smith"
+      },
+      {
+      "procedure": "Cataract Surgery",
+      "date": "2022-04-05",
+      "surgeon": "Dr. Johnson"
+      }
+  ]
+}

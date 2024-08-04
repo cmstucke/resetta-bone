@@ -54,6 +54,34 @@ router.get('/', async (req, res) => {
 
 });
 
+router.post('/record', async (req, res) => {
+
+  const { content } = req.body;
+
+  try {
+
+    const chatCompletion = await getGroqChatCompletion(content);
+    const botRes = chatCompletion.choices[0]?.message?.content || "No response.";
+    
+    const newChat = new Chat({
+      messages: [
+        { role: 'user', content: content },
+        { role: 'bot', content: botRes },
+      ],
+    });
+
+    await newChat.save();
+    res.status(201).json({ "newChat": newChat });
+
+  } catch (error) {
+
+    console.error('Error fetching chat completion:', error);
+    res.status(500).json({ error: 'Error fetching chat completion.' });
+
+  };
+
+});
+
 router.post('/', async (req, res) => {
 
   const { content } = req.body;
