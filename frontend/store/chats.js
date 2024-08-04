@@ -106,8 +106,8 @@ export const addChatThunk = content => async dispatch => {
 
 export const editChatThunk = (id, content) => async dispatch => {
 
-  // console.log('ID:', id);
-  // console.log('CONTENT:', content);
+  console.log('ID:', id);
+  console.log('CONTENT:', content);
 
   try {
 

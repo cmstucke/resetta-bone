@@ -9,6 +9,7 @@ router.put('/:id', async (req, res) => {
   console.log('CHAT PUT API');
   const { id } = req.params;
   const { content } = req.body;
+  console.log('ROUTE CONTENT:', content);
 
   try {
 
@@ -21,7 +22,7 @@ router.put('/:id', async (req, res) => {
     const modelRes = chatCompletion.choices[0]?.message?.content || "No response.";
 
     chat.messages.push({ role: 'user', content: content });
-    chat.messages.push({ role: 'bot', content: modelRes });
+    chat.messages.push({ role: 'system', content: modelRes });
 
     await chat.save();
 
@@ -61,12 +62,12 @@ router.post('/record', async (req, res) => {
   try {
 
     const chatCompletion = await getGroqChatCompletion(content);
-    const botRes = chatCompletion.choices[0]?.message?.content || "No response.";
+    const sysRes = chatCompletion.choices[0]?.message?.content || "No response.";
     
     const newChat = new Chat({
       messages: [
         { role: 'user', content: content },
-        { role: 'bot', content: botRes },
+        { role: 'system', content: sysRes },
       ],
     });
 
@@ -89,12 +90,12 @@ router.post('/', async (req, res) => {
   try {
 
     const chatCompletion = await getGroqChatCompletion(content);
-    const botRes = chatCompletion.choices[0]?.message?.content || "No response.";
+    const sysRes = chatCompletion.choices[0]?.message?.content || "No response.";
     
     const newChat = new Chat({
       messages: [
         { role: 'user', content: content },
-        { role: 'bot', content: botRes },
+        { role: 'system', content: sysRes },
       ],
     });
 

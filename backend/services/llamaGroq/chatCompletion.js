@@ -20,26 +20,22 @@ async function main() {
 }
 
 async function getGroqChatCompletion(content, prev) {
-
-  let prevMessages = '';
-  const newMessage = [];
   
-  if (prev) {
-    prevMessages += 'This is the previous conversation: ';
-    prev.forEach(message => prevMessages += `${message.role.toUpperCase()}: ${message.content} `);
-    prevMessages += 'Now, here is the new user prompt: ';
+  const newMessage = {
+    role: 'user',
+    content: content,
   };
 
-  prevMessages += content;
+  const messages = [];
 
-  newMessage.push({
-    role: 'user',
-    content: prevMessages,
-  });
+  if (prev) messages.push(...prev);
+
+  messages.push(newMessage);
 
   return groq.chat.completions.create({
-    messages: newMessage,
+    messages: messages,
     model: "llama3-8b-8192",
+    temperature: 0.1,
   });
 }
 
