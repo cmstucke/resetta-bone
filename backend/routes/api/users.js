@@ -46,8 +46,9 @@ const validateLogin = [
 
 // Passed in handValidtionErrors middleware that we created
 
-  router.post('/signup', validateSignup, async function(req, res, next) {
+  router.post('/register', async function(req, res, next) {
     const {email, password} = req.body
+    console.log('body', req.body)
 
     const emailExists = await User.findOne({email: email})
 
@@ -76,6 +77,7 @@ const validateLogin = [
           return res.json(await loginUser(user));
         }
         catch(err) {
+          const error = await err.json()
           next(err);
         }
       })
@@ -88,9 +90,9 @@ const validateLogin = [
 
   router.get('/current', restoreUser, (req, res) => {
     if (!isProduction) {
-      // // In development, allow React server to gain access to the CSRF token
-      // // whenever the current user information is first loaded into the
-      // // React application
+      // In development, allow React server to gain access to the CSRF token
+      // whenever the current user information is first loaded into the
+      // React application
       // const csrfToken = req.csrfToken();
       // res.cookie("CSRF-TOKEN", csrfToken);
     }

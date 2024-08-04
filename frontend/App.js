@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Chat from './src/components/chat';
 import Splash from './src/components/Splash';
 import RecordForm from './src/components/RecordForm'
+import NavButtons from './src/components/NavButtons';
 import configureStore from './store/store';
 import { Provider, useDispatch} from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -23,6 +24,7 @@ function App(){
       <Chat />
       <RecordForm />
       <StatusBar style="auto" />
+      <NavButtons />
     </View>
   );
 
@@ -45,3 +47,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

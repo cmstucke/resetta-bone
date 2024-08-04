@@ -36,7 +36,6 @@ async function jwtFetch(url, options = {}) {
     // const res = await fetch(`http://localhost:5001${url}`, options);
 
     const res = await fetch(`${config.apiUrl}${url}`, options);
-  
     // If the response status code is 400 or above, then throw an error with the
     // error being the response.
     if (res.status >= 400) throw res;
