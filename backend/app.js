@@ -39,22 +39,8 @@ if (!isProduction) {
   }));
 }
 
-<<<<<<< HEAD
-// // Set the _csrf token and create req.csrfToken method to generate a hashed
-// // CSRF token
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true
-//     }
-//   })
-// );
-=======
 // Set the _csrf token and create req.csrfToken method to generate a hashed
 // CSRF token
->>>>>>> dev
 
 // app.use(
 //   csurf({
