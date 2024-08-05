@@ -38,7 +38,14 @@ async function jwtFetch(url, options = {}) {
     // const res = await fetch(`http://localhost:5001${url}`, options);
 
     // const res = await fetch(`${config.apiUrl}${url}`, options);
-    const res = await fetch(`https://resetta-bone-7e685f0cd81d.herokuapp.com${url}`, options);
+    let res;
+    if(Platform.OS === 'ios'){
+      res = await fetch(`https://resetta-bone-7e685f0cd81d.herokuapp.com${url}`, options);
+    }else {
+      res = await fetch(`${config.apiUrl}${url}`, options);
+
+    }
+    
 
     // If the response status code is 400 or above, then throw an error with the
     // error being the response.
