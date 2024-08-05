@@ -1,4 +1,6 @@
 import config from "../config";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
 function getCookie(cookieName) {
     const cookies = document.cookie.split(';');
@@ -17,7 +19,7 @@ async function jwtFetch(url, options = {}) {
     options.headers = options.headers || {};
       // Set the "Authorization" header to the value of "jwtToken" in localStorage.
       let jwtToken;
-      if(navigator.userAgent){
+      if(Platform.OS === 'web'){
         jwtToken = localStorage.getItem('jwtToken');
       } else {
         jwtToken = await AsyncStorage.getItem('jwtToken');
@@ -29,13 +31,15 @@ async function jwtFetch(url, options = {}) {
       if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
         options.headers["Content-Type"] = "application/json";
       }
-      options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN"); 
+      // options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN"); 
     }
   
     // Call fetch with the url and the updated options hash.
     // const res = await fetch(`http://localhost:5001${url}`, options);
 
-    const res = await fetch(`${config.apiUrl}${url}`, options);
+    // const res = await fetch(`${config.apiUrl}${url}`, options);
+    const res = await fetch(`https://resetta-bone-7e685f0cd81d.herokuapp.com${url}`, options);
+
     // If the response status code is 400 or above, then throw an error with the
     // error being the response.
     if (res.status >= 400) throw res;
