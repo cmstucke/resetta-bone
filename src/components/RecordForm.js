@@ -4,15 +4,15 @@
 // import { NavigationContainer } from '@react-navigation/native';
 // import { createStackNavigator } from '@react-navigation/stack';
 // import PersonalInfoPage from '../screens/PersonalInfoPage';
-// import AllergiesPage from '../screens/AllergiesPage';
-// import HeartRatesPage from '../screens/HeartRatesPage';
-// import BloodPressuresPage from '../screens/BloodPressuresPage';
-// import ConditionsPage from '../screens/ConditionsPage';
-// import MedicationsPage from '../screens/MedicationsPage';
-// import ProceduresPage from '../screens/ProceduresPage';
-// import { useDispatch } from 'react-redux';
-// import { enableScreens } from 'react-native-screens';
-// // enableScreens();
+// // import AllergiesPage from '../screens/AllergiesPage';
+// // import HeartRatesPage from '../screens/HeartRatesPage';
+// // import BloodPressuresPage from '../screens/BloodPressuresPage';
+// // import ConditionsPage from '../screens/ConditionsPage';
+// // import MedicationsPage from '../screens/MedicationsPage';
+// // import ProceduresPage from '../screens/ProceduresPage';
+// // import { useDispatch } from 'react-redux';
+// // import { enableScreens } from 'react-native-screens';
+// // // enableScreens();
 
 // const Stack = createStackNavigator();
 // // const windowWidth = Dimensions.get('window').width;
@@ -30,7 +30,7 @@
 //       <Text>Hello</Text>
 //       <Stack.Navigator initialRouteName="PersonalInfo" screenOptions={globalScreenOptions}>
 //         <Stack.Screen name="Personal Info" component={PersonalInfoPage} />
-//         <Stack.Screen name="Allergies" component={AllergiesPage} />
+//         {/* <Stack.Screen name="Allergies" component={AllergiesPage} /> */}
 //         {/* <Stack.Screen name="HeartRates" component={HeartRatesPage} />
 //         <Stack.Screen name="BloodPressures" component={BloodPressuresPage} />
 //         <Stack.Screen name="Conditions" component={ConditionsPage} />
@@ -44,7 +44,7 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SignUp from '../screens/SignUp';
+import SignUp from './SignUp';
 import PersonalInfoPage from '../screens/PersonalInfoPage';
 import AllergiesPage from '../screens/AllergiesPage';
 
@@ -61,7 +61,7 @@ export default function RecordForm() {
     }
   }, [userRecord])
 
-  const [screen, setScreen] = useState(0);
+  const [screen, setScreen] = useState(1);
   const FormTitle = ["Sign Up", "Personal Info", "Allergies"];
   const ScreenDisplay = () => {
     if(screen === 0){
@@ -72,7 +72,6 @@ export default function RecordForm() {
       return <AllergiesPage />
     }
   }
-  console.log("screen", screen)
   return (
     <View>
       <Text>{FormTitle[screen]}</Text>

@@ -39,7 +39,7 @@ async function jwtFetch(url, options = {}) {
 
     // const res = await fetch(`${config.apiUrl}${url}`, options);
     let res;
-    if(Platform.OS === 'ios'){
+    if(Platform.OS === 'ios' || Platform.OS === 'android'){
       res = await fetch(`https://resetta-bone-7e685f0cd81d.herokuapp.com${url}`, options);
     }else {
       res = await fetch(`${config.apiUrl}${url}`, options);

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function NavButtons() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user)
-    console.log(sessionUser)
   return (
     <View>
         <Text>{sessionUser?.email ? sessionUser.email : "no one is logged in"}</Text>
