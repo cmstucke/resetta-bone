@@ -1,5 +1,9 @@
 import jwtFetch from './jwt';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import * as AsyncStorage from '../utils/AsyncStorage';
+// import {AsyncStorage} from 'react-native';
+// import * as SecureStore from 'expo-secure-store';
+
 import { Platform } from 'react-native';
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
@@ -52,6 +56,8 @@ const startSession = (userInfo, route) => async dispatch => {
       localStorage.setItem('jwtToken', token);
     } else {
       await AsyncStorage.setItem('jwtToken', token);
+      // await SecureStore.setItemAsync('jwtToken', token);
+
     }
     return dispatch(receiveCurrentUser(user));
   } catch(err) {
@@ -69,6 +75,7 @@ export const logout = () => async dispatch => {
     localStorage.removeItem('jwtToken');
   } else {
     await AsyncStorage.removeItem('jwtToken');
+    // await SecureStore.deleteItemAsync('jwtToken');
   }
   
   
