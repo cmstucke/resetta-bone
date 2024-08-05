@@ -63,7 +63,7 @@ const startSession = (userInfo, route) => async dispatch => {
   } catch(err) {
     console.log("!!!", err)
     const res = await err.json();
-    console.log(("harrr", res))
+    console.log(("err.json error", res))
     if (res.statusCode === 400) {
       return dispatch(receiveErrors(res.errors));
     }
@@ -83,7 +83,6 @@ export const logout = () => async dispatch => {
 };
 
 export const getCurrentUser = () => async dispatch => {
-  // console.log('agent', navigator.userAgent)
   try{
     const res = await jwtFetch('/api/users/current');
     const user = await res.json();
