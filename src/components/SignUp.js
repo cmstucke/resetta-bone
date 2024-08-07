@@ -59,7 +59,7 @@ export default function SignUp() {
 
     return (
         <View>
-            {isSignUp ? <Text>Sign Up</Text> : <Text>Log In</Text>}
+            {<Text>Welcome to Resetta Bone!</Text>}
             <TextInput 
                 style={{height: 40}} 
                 placeholder="email"
@@ -78,7 +78,7 @@ export default function SignUp() {
                 onChangeText={update('password2')}
                 defaultValue={password2}
             />)}
-            <Pressable onPress={userSubmit}>{isSignUp ? <Text>Sign Up</Text> : <Text>Log In</Text>}</Pressable>
+            <Pressable onPress={userSubmit}>{isSignUp ? <Text>SignUp</Text> : <Text>Log In</Text>}</Pressable>
             <Pressable onPress={()=> setIsSignUp(!isSignUp)}>{isSignUp ? <Text>Switch to Log in</Text> : <Text>Switch to Sign Up</Text>}</Pressable>
         </View>
     )
