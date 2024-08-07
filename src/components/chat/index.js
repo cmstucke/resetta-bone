@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getChatsThunk, addChatThunk, editChatThunk } from '../../../store/chats';
-import { View, Text, TextInput, Button, FlatList, StyleSheet, Pressable, ScrollView, Dimensions } from 'react-native';
+import { addChatThunk, editChatThunk, getChatsThunk } from '../../../store/chats';
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ const Chat = () => {
     try {
       postRes = await dispatch(addChatThunk({ content: chatInput }));
     } catch (error) {
+      // const errRes = await error.json();
       console.log('Error submitting chat input.', error);
     };
     
@@ -94,8 +95,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   messageContainer: {
-    padding: 10,
-    backgroundColor: '#e1f5fe',
+    // padding: 10,
+    // backgroundColor: '#e1f5fe',
     borderRadius: 5,
     marginVertical: 5,
   },

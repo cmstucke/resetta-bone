@@ -47,7 +47,7 @@ function App(){
           <NavButtons style={{}} page={page} setPage={setPage}/>
         </View>
       )}
-      {/* <Chat /> */}
+      <Chat />
       {/* {currentUser && !currentRecord._id && <RecordMultiPageForm />} */}
       <StatusBar style="auto" />
     </View>
