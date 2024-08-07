@@ -42,9 +42,9 @@ function App(){
   return loaded && (
     <View style={styles.container}>
       {!currentUser ? <SignUp /> : (
-        <View>
+        <View style={styles.content}>
           {pageDisplay()}
-          <NavButtons page={page} setPage={setPage}/>
+          <NavButtons style={{}} page={page} setPage={setPage}/>
         </View>
       )}
       {/* <Chat /> */}
@@ -67,9 +67,13 @@ export default function Root() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end', // Ensure content is pushed up
   },
+  content: {
+    flex: 1, // Take up remaining space
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
 });
 
