@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Feather from '@expo/vector-icons/Feather';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { element } from 'prop-types';
 
 export default function NavButtons({page, setPage}) {
     const dispatch = useDispatch();
@@ -13,9 +14,40 @@ export default function NavButtons({page, setPage}) {
     
   return (
     <View style={styles.navbar}>
-      <Pressable style={page === 'record' ? {backgroundColor: "#6495ED"} : {}} onPress={()=> setPage('record')}><Text><Feather name="clipboard" size={24} color={page === 'record' ? 'white' : "#6495ED"} /></Text></Pressable>
-      <Pressable style={page === 'scanQR' ? {backgroundColor: "#6495ED"} : {}} onPress={()=> setPage('scanQR')}><Text><MaterialCommunityIcons name="qrcode-scan" size={24} color={page === 'scanQR' ? 'white' : "#6495ED"} /></Text></Pressable>
-      <Pressable style={page === 'profile' ? {backgroundColor: "#6495ED"} : {}} onPress={()=> setPage('profile')}><Text><AntDesign name="user" size={24} color={page === 'profile' ? 'white' : "#6495ED"} /></Text></Pressable>
+      <Pressable style={page === 'record' ? styles.selectedNavElement : styles.navElement} 
+        onPress={()=> setPage('record')}>
+          <View style={{alignItems:'center'}}>
+            <Text >
+              <Feather name="clipboard" size={24} color={page === 'record' ? 'white' : "#6495ED"} />
+            </Text>
+            <Text>
+              My Record
+            </Text>
+          </View>
+      </Pressable>
+      <Pressable 
+        style={page === 'scanQR' ? styles.selectedNavElement : styles.navElement} 
+        onPress={()=> setPage('scanQR')}>
+          <View style={{alignItems:'center'}}>
+            <Text>
+              <MaterialCommunityIcons name="qrcode-scan" size={24} color={page === 'scanQR' ? 'white' : "#6495ED"} /> 
+            </Text>
+            <Text>
+              QR Code
+            </Text>
+          </View>
+      </Pressable>
+      <Pressable style={page === 'profile' ? styles.selectedNavElement : styles.navElement} 
+        onPress={()=> setPage('profile')}>
+          <View style={{alignItems:'center'}}>
+            <Text>
+              <AntDesign name="user" size={24} color={page === 'profile' ? 'white' : "#6495ED"} />
+            </Text>
+            <Text>
+              Profile
+            </Text>
+          </View>
+      </Pressable>
     </View>
   )
 }
@@ -26,9 +58,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     backgroundColor: '#DCDCDC',
-    padding: 10,
     position: 'absolute',
     bottom: 0,
     width: '100%',
   },
+  navElement:{ 
+    padding: 10, 
+    flex: 1
+  },
+  selectedNavElement:{
+    backgroundColor: "#6495ED",
+    borderTopWidth: '3',
+    borderColor:'#DCDCDC',
+    flex: 1,
+    padding: 10
+  }
 });

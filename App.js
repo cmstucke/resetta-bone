@@ -41,7 +41,13 @@ function App(){
 
   return loaded && (
     <View style={styles.container}>
-      {!currentUser ? <SignUp /> : (
+      {!currentUser ? 
+        (
+        <View style={styles.content}> 
+          <SignUp />
+        </View>
+        )
+       : (
         <View style={styles.content}>
           {pageDisplay()}
           <NavButtons style={{}} page={page} setPage={setPage}/>
