@@ -60,16 +60,16 @@ export default function SignUp() {
     return (
         <SafeAreaView style={styles.signupContainer}>
             <View style={styles.formContainer}>
-            {<Text style={{fontSize: 24, fontWeight: 'bold'}}>Welcome to Resetta Bone!</Text>}
+            {<Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 20}}>Welcome to Resetta Bone!</Text>}
             <TextInput
                 style={{height: 40}}
-                placeholder="Please provide a valid email"
+                placeholder={isSignUp ? "Please a provide a valid email": "Enter email"}
                 onChangeText={update('email')}
                 defaultValue={email}
             />
             <TextInput
                 style={{height: 40}}
-                placeholder="Create a password"
+                placeholder={isSignUp ? "Create password" : "Enter password"}
                 onChangeText={update('password')}
                 defaultValue={password}
             />
@@ -79,8 +79,8 @@ export default function SignUp() {
                 onChangeText={update('password2')}
                 defaultValue={password2}
             />)}
-            <Pressable onPress={userSubmit}>{isSignUp ? <Text>Sign Up</Text> : <Text>Log In</Text>}</Pressable>
-            <Pressable onPress={()=> setIsSignUp(!isSignUp)}>{isSignUp ? <Text>Switch to Log in</Text> : <Text>Switch to Sign Up</Text>}</Pressable>
+            <Pressable style={styles.buttonContainer} onPress={userSubmit}>{isSignUp ? <Text style={{color: 'white', fontWeight: 'bold'}}>Sign Up</Text> : <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>}</Pressable>
+            <Pressable style={{alignItems: 'center'}} onPress={()=> setIsSignUp(!isSignUp)}>{isSignUp ? <Text>Already a member? Sign in</Text> : <Text>New to Resetta? Create an account</Text>}</Pressable>
             </View>
         </SafeAreaView>
 
@@ -106,5 +106,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 3
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        borderWidth: 1,
+        backgroundColor: 'red',
+        borderColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        marginTop: 20,
+        marginBottom: 10
     }
 })
