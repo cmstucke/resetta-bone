@@ -90,17 +90,13 @@ export const addChatThunk = content => async dispatch => {
       
     } else {
       
-      console.log('THUNK IF BLOCK');
       const data = await res.json();
-      // console.error('Error in chat response.', data);
       console.log('Error in chat response.', data);
       
     };
     
   } catch (error) {
     
-    console.log('THUNK TRY BLOCK');
-    // console.error('Error fetching chat.', data);
     const data = await error.json();
     console.log('Error fetching chat.', data);
 

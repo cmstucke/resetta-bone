@@ -50,10 +50,10 @@ function App(){
        : (
         <View style={styles.content}>
           {pageDisplay()}
+          <Chat />
           <NavButtons style={{}} page={page} setPage={setPage}/>
         </View>
       )}
-      <Chat />
       {/* {currentUser && !currentRecord._id && <RecordMultiPageForm />} */}
       <StatusBar style="auto" />
     </View>

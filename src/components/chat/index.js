@@ -86,38 +86,40 @@ const Chat = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    // flex: 1,
+    // padding: 20,
+    // backgroundColor: '#f5f5f5',
   },
   chatContainer: {
-    flexGrow: 0,
-    marginBottom: 20,
+    // flexGrow: 0,
+    // marginBottom: 20,
   },
   messageContainer: {
-    // padding: 10,
+    margin: 10
     // backgroundColor: '#e1f5fe',
-    borderRadius: 5,
-    marginVertical: 5,
+    // borderRadius: 5,
+    // marginVertical: 5,
   },
   messageText: {
-    fontSize: 16,
-    color: '#333',
+    // fontSize: 16,
+    // color: '#333',
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
+    borderColor: '#ccc',
     paddingHorizontal: 10,
-    marginBottom: 10,
+    marginVertical: 10,
+    marginHorizontal: 10,
     backgroundColor: '#fff',
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#6495ED',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
+    marginHorizontal: 10
   },
   buttonText: {
     color: '#fff',
