@@ -50,7 +50,7 @@ function App(){
        : (
         <View style={styles.content}>
           {pageDisplay()}
-          <Chat />
+          {/* <Chat /> */}
           <NavButtons style={{}} page={page} setPage={setPage}/>
         </View>
       )}

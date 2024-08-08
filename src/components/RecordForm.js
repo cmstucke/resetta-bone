@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchCurrentUserRecord } from '../../store/records';
+import Chat from './chat';
 
 export default function RecordForm() {
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ export default function RecordForm() {
     if(!record) return <View></View>
 
     return (
+      <>
         <ScrollView>
           <View>
             <Text>First Name: </Text>
@@ -88,6 +90,8 @@ export default function RecordForm() {
     
           <Button title={isEditing ? "Save" : "Edit"} onPress={isEditing ? handleSave : handleEditToggle} /> */}
         </ScrollView>
+        <Chat />
+        </>
     );
 };
     
