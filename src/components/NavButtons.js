@@ -64,13 +64,15 @@ const styles = StyleSheet.create({
   },
   navElement:{ 
     padding: 10, 
-    flex: 1
+    paddingBottom: 30,
+    flex: 1,
   },
   selectedNavElement:{
     backgroundColor: "#6495ED",
-    borderTopWidth: '3',
+    // borderTopWidth: '3',
     borderColor:'#DCDCDC',
+    padding: 10,
+    paddingBottom: 30,
     flex: 1,
-    padding: 10
   }
 });
