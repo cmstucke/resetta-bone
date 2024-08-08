@@ -29,7 +29,7 @@ export const fetchCurrentUserRecord = () => async dispatch => {
     console.log('err', error)
     const resBody = await error.json();
     if (resBody.statusCode === 400){
-      dispatch(receiveErrors(resBody));
+      dispatch(receiveErrors(resBody.errors));
     }
   }
 }
@@ -41,7 +41,23 @@ export const fetchRecord = (userId) => async dispatch => {
   } catch (error) {
     const resBody = await error.json();
     if (resBody.statusCode === 400){
-      dispatch(receiveErrors(resBody));
+      dispatch(receiveErrors(resBody.errors));
+    }
+  }
+}
+
+export const updateRecord = (updatedRecord) => async dispatch => {
+  try {
+    const res = await jwtFetch(`/api/records/${updatedRecord._id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updatedRecord)
+    })
+    const record = await res.json();
+    dispatch(receiveRecord(record));
+  } catch (error) {
+    const resBody = await error.json();
+    if (resBody.statusCode === 400){
+      dispatch(receiveErrors(resBody.errors));
     }
   }
 }
