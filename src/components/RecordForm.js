@@ -90,7 +90,7 @@ export default function RecordForm() {
     
           <Button title={isEditing ? "Save" : "Edit"} onPress={isEditing ? handleSave : handleEditToggle} /> */}
         </ScrollView>
-        <Chat />
+        {/* <Chat /> */}
         </>
     );
 };
