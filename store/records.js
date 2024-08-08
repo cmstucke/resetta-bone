@@ -1,93 +1,74 @@
-import { createSlice } from '@reduxjs/toolkit';
+// import { createSlice } from '@reduxjs/toolkit';
 import jwtFetch from './jwt';
 
+const RECEIVE_RECORD = "records/RECEIVE_RECORD";
+// const UPDATE_RECORD = "records/UPDATE_RECORD";
+const RECEIVE_RECORD_ERRORS = "records/RECEIVE_RECORD_ERRORS";
+const CLEAR_RECORD_ERRORS = "records/CLEAR_RECORD_ERRORS";
 
-const initialState = {
-  firstName: '',
-  lastName: '',
-  dateOfBirth: '',
-  biologicalGender: '',
-  smokingStatus: '',
-  alcoholConsumption: '',
-  exerciseFrequency: '',
-  emergencyContacts: [],
-  familyHistory: [],
-  labResults: [],
-  immunizations: [],
-  dnr: null,
-  organDonor: null,
-  allergies: [],
-  heartRates: [],
-  bloodPressures: [],
-  preExistingConditions: [],
-  medications: [],
-  procedures: []
-};
-
-const records = createSlice({
-  name: 'form',
-  initialState,
-  reducers: {
-    updatePersonalInfo(state, action) {
-      return { ...state, ...action.payload };
-    },
-    updateFrequencies(state, action) {
-        return { ...state, ...action.payload };
-    },
-    updateEmergencyContacts(state, action) {
-        state.emergencyContacts = action.payload;
-    },
-    updateFamilyHistory(state, action) {
-        state.familyHistory = action.payload;
-    },
-    updateLabResults(state, action) {
-        state.labResults = action.payload;
-    },
-    updateImmunizations(state, action) {
-        state.immunizations = action.payload;
-    },
-    updateDnr(state, action) {
-        state.dnr = action.payload;
-    },
-    updateOrganDonor(state, action) {
-        state.organDonor = action.payload;
-    },
-    updateAllergies(state, action) {
-      state.allergies = action.payload;
-    },
-    updateHeartRates(state, action) {
-      state.heartRates = action.payload;
-    },
-    updateBloodPressures(state, action) {
-      state.bloodPressures = action.payload;
-    },
-    updateConditions(state, action) {
-      state.preExistingConditions = action.payload;
-    },
-    updateMedications(state, action) {
-      state.medications = action.payload;
-    },
-    updateProcedures(state, action) {
-      state.procedures = action.payload;
-    },
-  },
+const receiveRecord = (record) => ({
+  type: RECEIVE_RECORD,
+  payload: { record }
+});
+const receiveErrors = errors => ({
+  type: RECEIVE_RECORD_ERRORS,
+  errors
 });
 
-export const {
-  updatePersonalInfo,
-  updateFrequencies,
-  updateEmergencyContacts,
-  updateFamilyHistory,
-  updateLabResults,
-  updateImmunizations,
-  updateDnr,
-  updateOrganDonor,
-  updateAllergies,
-  updateHeartRates,
-  updateBloodPressures,
-  updateConditions,
-  updateMedications,
-  updateProcedures,
-} = records.actions;
+export const clearRecordErrors = errors => ({
+    type: CLEAR_RECORD_ERRORS,
+    errors
+});
 
-export default records.reducer;
+export const fetchCurrentUserRecord = () => async dispatch => {
+  try {
+    const res = await jwtFetch('/api/records');
+    const record = await res.json();
+    dispatch(receiveRecord(record));
+  } catch (error) {
+    console.log('err', error)
+    const resBody = await error.json();
+    if (resBody.statusCode === 400){
+      dispatch(receiveErrors(resBody));
+    }
+  }
+}
+export const fetchRecord = (userId) => async dispatch => {
+  try {
+    const res = await jwtFetch(`/api/records/${userId}`)
+    const record = await res.json();
+    dispatch(receiveRecord(record));
+  } catch (error) {
+    const resBody = await error.json();
+    if (resBody.statusCode === 400){
+      dispatch(receiveErrors(resBody));
+    }
+  }
+}
+
+const initialState = {};
+
+const recordReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case RECEIVE_RECORD:
+      const { record } = action.payload;
+      return {...state,[record.user._id]: record}
+    default:
+      return state;
+  }
+};
+
+const nullErrors = null;
+
+export const recordErrorsReducer = (state = nullErrors, action) => {
+  switch(action.type) {
+    case RECEIVE_RECORD_ERRORS:
+      return action.errors;
+    case CLEAR_RECORD_ERRORS:
+      return nullErrors;
+    default:
+      return state;
+  }
+};
+
+export default recordReducer;
