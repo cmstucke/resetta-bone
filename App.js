@@ -22,7 +22,7 @@ function App(){
   const currentRecord = useSelector(state => state.entities.records)
   const dispatch = useDispatch();
   
-  const [page, setPage] = useState('profile');
+  const [page, setPage] = useState('record');
   
   const pageDisplay = () => {
     if(page === 'record'){
