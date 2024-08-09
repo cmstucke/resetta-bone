@@ -56,6 +56,7 @@ export const updateRecord = (updatedRecord) => async dispatch => {
     dispatch(receiveRecord(record));
   } catch (error) {
     const resBody = await error.json();
+    console.log(resBody)
     if (resBody.statusCode === 400){
       dispatch(receiveErrors(resBody.errors));
     }
