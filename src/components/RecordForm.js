@@ -1,87 +1,119 @@
-// // App.js
-// import * as React from 'react';
-// import { StyleSheet, Text, View, Pressable, Dimensions } from 'react-native';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import PersonalInfoPage from '../screens/PersonalInfoPage';
-// // import AllergiesPage from '../screens/AllergiesPage';
-// // import HeartRatesPage from '../screens/HeartRatesPage';
-// // import BloodPressuresPage from '../screens/BloodPressuresPage';
-// // import ConditionsPage from '../screens/ConditionsPage';
-// // import MedicationsPage from '../screens/MedicationsPage';
-// // import ProceduresPage from '../screens/ProceduresPage';
-// // import { useDispatch } from 'react-redux';
-// // import { enableScreens } from 'react-native-screens';
-// // // enableScreens();
-
-// const Stack = createStackNavigator();
-// // const windowWidth = Dimensions.get('window').width;
-// const globalScreenOptions = {
-//   headerStyle: { backgroundColor: "#2C6BED" },
-//   headerTitleStyle: { color: "white" },
-//   headerTintColor: "white",
-//   flex: 1
-// };
-
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Text>Hello</Text>
-//       <Stack.Navigator initialRouteName="PersonalInfo" screenOptions={globalScreenOptions}>
-//         <Stack.Screen name="Personal Info" component={PersonalInfoPage} />
-//         {/* <Stack.Screen name="Allergies" component={AllergiesPage} /> */}
-//         {/* <Stack.Screen name="HeartRates" component={HeartRatesPage} />
-//         <Stack.Screen name="BloodPressures" component={BloodPressuresPage} />
-//         <Stack.Screen name="Conditions" component={ConditionsPage} />
-//         <Stack.Screen name="Medications" component={MedicationsPage} />
-//         <Stack.Screen name="Procedures" component={ProceduresPage} /> */}
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-import { View, Text, Pressable, StyleSheet } from 'react-native'
-import React, {useEffect, useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import SignUp from './SignUp';
-import PersonalInfoPage from '../screens/PersonalInfoPage';
-import AllergiesPage from '../screens/AllergiesPage';
+import { View, Text, ScrollView, Pressable, TextInput} from 'react-native';
+import moment from 'moment';
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import { fetchCurrentUserRecord } from '../../store/records';
+import { updateRecord } from '../../store/records';
+import RecordFormModal from './RecordFormModal'
 
 export default function RecordForm() {
-  const dispatch = useDispatch();
-  const userRecord = useSelector((state) => state.entities.records);
-  const [formData, setFormData] = useState({});
- 
-  useEffect(()=> {
-    //fetch user record and update formData
-    //useDispatch()
-    if(userRecord){
-      setFormData(userRecord);
-    }
-  }, [userRecord])
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.session.user);
+    const record = useSelector(state => state.entities.records[currentUser._id]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editableRecord, setEditableRecord] = useState(record);
+    const [selectedField, setSelectedField] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [editableValue, setEditableValue] = useState('');
 
-  const [screen, setScreen] = useState(1);
-  const FormTitle = ["Sign Up", "Personal Info", "Allergies"];
-  const ScreenDisplay = () => {
-    if(screen === 0){
-      return <SignUp />
-    } else if (screen === 1){
-      return <PersonalInfoPage />
-    } else if (screen === 2){
-      return <AllergiesPage />
-    }
-  }
-  return (
-    <View>
-      <Text>{FormTitle[screen]}</Text>
-      <View>{ScreenDisplay()}</View>
-      <Pressable disabled={screen === 0} onPress={() => setScreen((currScreen) => currScreen - 1)}>
-        <Text>Prev</Text>
-      </Pressable>
-      <Pressable disabled={screen === FormTitle.length - 1} onPress={() => setScreen((currScreen) => currScreen + 1)}>
-        <Text>Next</Text>
-      </Pressable >
-    </View>
-  )
-}
+    const openModal = (field) => {
+      setSelectedField(field);
+      setEditableValue(record[field]);
+      setModalVisible(true);
+    };
+
+    useEffect(()=> {
+        dispatch(fetchCurrentUserRecord());
+    }, []);
+
+    useEffect(()=> {
+        setEditableRecord(record);
+    }, [record]);
+
+
+    const handleEditToggle = () => {
+        setIsEditing(!isEditing);
+        setEditableRecord(record);
+    };
+    const handleChange = (field, value) => {
+        setEditableRecord({
+          ...editableRecord,
+          [field]: value
+        });
+    };
+    const handleArrayChange = (field, index, key, value) => {
+        const updatedArray = [...editableRecord[field]];
+        updatedArray[index][key] = value;
+        setEditableRecord({...editableRecord, [field]: updatedArray});
+    };
+    const handleArrayDelete = (field, id) => {
+      const updatedArray = [...editableRecord[field]].filter((obj) => obj._id !== id);
+      setEditableRecord({...editableRecord, [field]: updatedArray});
+    };
+
+    const handleAddToArrayField = (field) => {
+        let newObject = {}; // Initialize with default values if needed
+        if(field === 'procedures'){
+            newObject = {
+                procedure: '',
+                date: '',
+                surgeon: ''
+            }
+        }
+        dispatch(updateRecord({...editableRecord, [field]: [...editableRecord[field], newObject]}));
+    };
+    
+    const handleSave = () => {
+        dispatch(updateRecord(editableRecord));
+        setIsEditing(false);
+    };
+
+    if(!record) return <View></View>
+
+    return (
+        <ScrollView>
+          <View>
+            <Text>First Name: </Text>
+            <Text>{record.firstName}</Text>
+            <Pressable onPress={() => openModal('firstName')}><Text>Edit</Text></Pressable>
+              {/* <TextInput value={editableRecord?.firstName} onChangeText={value => handleChange('firstName', value)} /> */}
+          </View>
+    
+          <View>
+            <Text>Last Name: </Text>
+              <TextInput value={editableRecord?.lastName} onChangeText={value => handleChange('lastName', value)}/>
+          </View>
+    
+    
+          {editableRecord?.procedures.map((procedure, index) => (
+            <View key={procedure._id}>
+              <Text>Procedure: </Text>
+              {/* {isEditing ? ( */}
+                <Text>Name</Text><TextInput value={procedure.procedure} onChangeText={value => handleArrayChange('procedures', 'procedure', value)}/>
+                <Text>Date</Text><TextInput placeholder="Chose date of procedure" value={moment(procedure.date).format('DD MMMM, YYYY')} onDateChange={value => handleArrayChange('procedures', 'date', value)}/>
+                <Text>Surgeon</Text><TextInput value={procedure.surgeon} onChangeText={value => handleArrayChange('procedures', 'surgeon', value)}/>
+
+                <Pressable onPress={() => handleArrayDelete('procedures', procedure._id)}><Text>Delete</Text></Pressable>
+              {/* ) : (
+                <Text>{procedure.procedure}</Text>
+              )} */}
+            </View>
+          ))}
+
+            <Pressable onPress={() => handleAddToArrayField('procedures')}><Text>Add Procedure</Text></Pressable>
+    
+            {/* <Pressable onPress={isEditing ? handleSave : handleEditToggle}><Text>{isEditing ? "Save" : "Edit"}</Text></Pressable> */}
+            <Pressable onPress={handleSave}><Text>{"Save"}</Text></Pressable>
+            <RecordFormModal
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              onSave={handleSave}
+              fieldLabel={selectedField}
+              fieldValue={editableValue}
+              setFieldValue={setEditableValue}
+            />
+
+        </ScrollView>
+    );
+};
+    
