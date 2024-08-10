@@ -1,0 +1,15 @@
+{
+    "ch": {
+        "name": "Chinese",
+        "nativeName": "中文"
+    },
+    "en": {
+        "name": "English",
+        "nativeName": "English"
+    },
+    "sp": {
+        "name": "Spanish",
+        "nativeName": "español"
+    }
+
+}

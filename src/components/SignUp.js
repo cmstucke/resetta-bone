@@ -1,12 +1,19 @@
-import { View, Text, TextInput, Pressable, StyleSheet, SafeAreaView } from 'react-native'
+import { View, Text, TextInput, Pressable, StyleSheet, SafeAreaView, Modal, FlatList, TouchableOpacity,  } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { signup, login, clearSessionErrors } from '../../store/session';
+import i18next, { languageResources } from "../../services/i18next"
+import { useTranslation } from 'react-i18next';
+import languageList from "../../services/languagesList.json"
 
 export default function SignUp() {
+    const {t} = useTranslation();
+
+    const [visible, setVisible] = useState(false)
+
     const [isSignUp, setIsSignUp] = useState(true);
     const [email, setEmail] = useState('');
-    const [language, setLanguage] = useState('en');
+    // const [language, setLanguage] = useState('en');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     // const [image, setImage] = useState(null);
@@ -59,22 +66,35 @@ export default function SignUp() {
 
     return (
         <SafeAreaView style={styles.signupContainer}>
+
+            <Modal visible={visible} onRequestClose={() => setVisible(false)}>
+                <View style={styles.languageLists}>
+                    <FlatList data={Object.keys(languageResources)} renderItem={({item}) => <TouchableOpacity>
+                        <Text>{languageList[item].nativeName}</Text>
+                    </TouchableOpacity>}/>
+                </View>
+            </Modal>
+
             <View style={styles.formContainer}>
-            {<Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 20}}>Welcome to Resetta Bone!</Text>}
+
+            {<Text style={{fontSize: 24, fontWeight: 'bold', marginBottom: 20}}>{t("welcome")}</Text>}
+            <TouchableOpacity onPress={() => setVisible(true)}>
+                <Text>{t("select-language")}</Text>
+            </TouchableOpacity>
             <TextInput
-                style={{height: 40}}
+                style={{height: 40, fontWeight: '100'}}
                 placeholder={isSignUp ? "Please a provide a valid email": "Enter email"}
                 onChangeText={update('email')}
                 defaultValue={email}
             />
             <TextInput
-                style={{height: 40}}
+                style={{height: 40, fontWeight: '100'}}
                 placeholder={isSignUp ? "Create password" : "Enter password"}
                 onChangeText={update('password')}
                 defaultValue={password}
             />
             {isSignUp && (<TextInput
-                style={{height: 40}}
+                style={{height: 40, fontWeight: 100}}
                 placeholder="Confirm password"
                 onChangeText={update('password2')}
                 defaultValue={password2}
@@ -110,11 +130,16 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         borderWidth: 1,
-        backgroundColor: 'red',
+        backgroundColor: '#6495ED',
         borderColor: 'white',
         padding: 20,
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 10
+    },
+    languageLists: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 10,
     }
 })
