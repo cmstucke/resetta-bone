@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, TextInput, Pressable, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DatePicker from 'react-datepicker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEditableFields}) => {
@@ -18,6 +17,17 @@ const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEd
         saveFunction(localValue);
         onClose();
     };
+    const unPascalCase = (str) => {
+        let newStr = '';
+        for(const char of str){
+            if(char === char.toUpperCase()){
+                newStr += ` ${char}`;
+            } else {
+                newStr += char;
+            }
+        }
+        return newStr.charAt(0).toUpperCase() + newStr.slice(1);
+    }
 
     return (
         <Modal
@@ -29,9 +39,9 @@ const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEd
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
             <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
                 {Object.keys(localValue).map((key)=> (
-                    key === 'date' ? 
+                    !!key.toLowerCase.match(/date/) ? 
                     (<View key={key}> 
-                        <Text>{key}</Text>
+                        <Text>{unPascalCase(key)}</Text>
                         {Platform.OS === 'web' ?
                             <DatePicker selected={localValue[key]} onChange={(date) => setLocalValue({...localValue, [key]: date})}/>
                             :
@@ -39,7 +49,7 @@ const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEd
                         }
                     </View>)
                     : (<View key={key}> 
-                        <Text>{key}</Text>
+                        <Text>{unPascalCase(key)}</Text>
                         <TextInput
                             value={localValue[key]}
                             onChangeText={(e) => setLocalValue({...localValue, [key]: e})}
