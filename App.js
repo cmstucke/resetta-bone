@@ -1,9 +1,8 @@
 import '@expo/metro-runtime'; //allows for auto refresh on web in development
 import { StatusBar } from 'expo-status-bar';
+import {Dimensions} from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import Chat from './src/components/chat';
-import Splash from './src/components/Splash';
-import RecordMultiPageForm from './src/components/RecordMultiPageForm'
 import NavButtons from './src/components/NavButtons';
 import SignUp from './src/components/SignUp';
 import configureStore from './store/store';
@@ -13,7 +12,6 @@ import { getCurrentUser } from './store/session';
 import Profile from './src/components/Profile';
 import RecordForm from './src/components/RecordForm';
 import ScanQR from './src/components/ScanQR';
-
 let store = configureStore({});
 
 function App(){
@@ -49,12 +47,13 @@ function App(){
         )
        : (
         <View style={styles.content}>
-          {pageDisplay()}
+          <View style={{flex: 1, marginBottom:100, width: Dimensions.get('window').width}}>
+            {pageDisplay()}
+          </View>
           <NavButtons style={{}} page={page} setPage={setPage}/>
         </View>
       )}
       {/* <Chat /> */}
-      {/* {currentUser && !currentRecord._id && <RecordMultiPageForm />} */}
       <StatusBar style="auto" />
     </View>
   );
@@ -73,6 +72,7 @@ export default function Root() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: Dimensions.get('window').width,
     justifyContent: 'flex-end', // Ensure content is pushed up
   },
   content: {

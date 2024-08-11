@@ -4,6 +4,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DatePicker from 'react-datepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import 'react-datepicker/dist/react-datepicker.css';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEditableFields}) => {
     const [localValue, setLocalValue] = useState(editableFields);
@@ -39,7 +41,7 @@ const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEd
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
             <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
                 {Object.keys(localValue).map((key)=> (
-                    !!key.toLowerCase.match(/date/) ? 
+                    !!key.toLowerCase().match(/date/) ? 
                     (<View key={key}> 
                         <Text>{unPascalCase(key)}</Text>
                         {Platform.OS === 'web' ?
@@ -57,8 +59,10 @@ const RecordFormModal = ({ visible, onClose, saveFunction, editableFields, setEd
                         />
                     </View>)
                 ))}
-            <Pressable onPress={onSave}><Text>Save</Text></Pressable>
-            <Pressable onPress={onClose}><Text>Cancel</Text></Pressable>
+            <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                <Pressable onPress={onSave}><Text><AntDesign name="checkcircle" size={26} color="green" /></Text></Pressable>
+                <Pressable onPress={onClose}><Text><MaterialIcons name="cancel" size={30} color="red" /></Text></Pressable>
+            </View>
             </View>
         </View>
         </Modal>
