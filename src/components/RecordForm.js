@@ -3,15 +3,12 @@ import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchCurrentUserRecord } from '../../store/records';
-<<<<<<< HEAD
 // import Chat from './chat';
-=======
 import { updateRecord } from '../../store/records';
 import RecordFormModal from './RecordFormModal'
 import Feather from '@expo/vector-icons/Feather';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
->>>>>>> dev
 
 export default function RecordForm() {
   const dispatch = useDispatch();
@@ -122,16 +119,6 @@ export default function RecordForm() {
   };
   if(!record) return <View></View>
 
-<<<<<<< HEAD
-    return (
-      <>
-        <ScrollView>
-          <View>
-            <Text>First Name: </Text>
-            <Text>{record.firstName}</Text>
-            <Pressable onPress={() => openModal('firstName')}><Text>Edit</Text></Pressable>
-              {/* <TextInput value={editableRecord?.firstName} onChangeText={value => handleChange('firstName', value)} /> */}
-=======
   const styles = StyleSheet.create({
     section: {
       padding: 10,
@@ -260,7 +247,6 @@ export default function RecordForm() {
                 <Pressable onPress={() => openModal({name: contact.name, phone: contact.phone, relationship: contact.relationship}, handleArraySave('emergencyContacts', contact._id))}><Text>{editButton}</Text></Pressable>
                 <Pressable onPress={() => handleArrayDelete('emergencyContacts', contact._id)}><Text>{deleteButton}</Text></Pressable>
               </View>
->>>>>>> dev
           </View>
         ))}    
       </View>
@@ -320,12 +306,6 @@ export default function RecordForm() {
         ))}    
       </View>
 
-<<<<<<< HEAD
-        </ScrollView>
-        {/* <Chat /> */}
-        </>
-    );
-=======
       <View style={styles.section}>
         <View style={styles.header}> 
           <Text style={styles.headerText}>Immunizations</Text>
@@ -494,6 +474,5 @@ export default function RecordForm() {
     </ScrollView>
   </SafeAreaView>
   );
->>>>>>> dev
 };
     

@@ -2,7 +2,7 @@ import '@expo/metro-runtime'; //allows for auto refresh on web in development
 import { StatusBar } from 'expo-status-bar';
 import {Dimensions} from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
-import Chat from './src/components/chat';
+// import Chat from './src/components/chat';
 import NavButtons from './src/components/NavButtons';
 import SignUp from './src/components/SignUp';
 import configureStore from './store/store';
