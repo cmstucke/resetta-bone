@@ -10,7 +10,6 @@ export default function PersonalInfoPage({ formData, setFormData }) {
   const dispatch = useDispatch();
   const firstName = useSelector((state) => state.entities.records.firstName);
   // const lastName = useSelector((state => ))
-  console.log(formData)
   const update = field => {
     return e =>{
       dispatch(updateAllergies([...allergies, data]));
