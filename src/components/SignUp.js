@@ -83,24 +83,24 @@ export default function SignUp() {
             </TouchableOpacity>
             <TextInput
                 style={{height: 40, fontWeight: '100'}}
-                placeholder={isSignUp ? "Please a provide a valid email": "Enter email"}
+                placeholder={isSignUp ? t("valid-email"): t("enter-email")}
                 onChangeText={update('email')}
                 defaultValue={email}
             />
             <TextInput
                 style={{height: 40, fontWeight: '100'}}
-                placeholder={isSignUp ? "Create password" : "Enter password"}
+                placeholder={isSignUp ? t("create-pass") : t("enter-pass")}
                 onChangeText={update('password')}
                 defaultValue={password}
             />
             {isSignUp && (<TextInput
                 style={{height: 40, fontWeight: 100}}
-                placeholder="Confirm password"
+                placeholder={t("confirm-pass")}
                 onChangeText={update('password2')}
                 defaultValue={password2}
             />)}
-            <Pressable style={styles.buttonContainer} onPress={userSubmit}>{isSignUp ? <Text style={{color: 'white', fontWeight: 'bold'}}>Sign Up</Text> : <Text style={{color: 'white', fontWeight: 'bold'}}>Log In</Text>}</Pressable>
-            <Pressable style={{alignItems: 'center'}} onPress={()=> setIsSignUp(!isSignUp)}>{isSignUp ? <Text>Already a member? Sign in</Text> : <Text>New to Resetta? Create an account</Text>}</Pressable>
+            <Pressable style={styles.buttonContainer} onPress={userSubmit}>{isSignUp ? <Text style={{color: 'white', fontWeight: 'bold'}}>{t("signup")}</Text> : <Text style={{color: 'white', fontWeight: 'bold'}}>{t("login")}</Text>}</Pressable>
+            <Pressable style={{alignItems: 'center'}} onPress={()=> setIsSignUp(!isSignUp)}>{isSignUp ? <Text>{t("member")}</Text> : <Text>{t("create-account")}</Text>}</Pressable>
             </View>
         </SafeAreaView>
 

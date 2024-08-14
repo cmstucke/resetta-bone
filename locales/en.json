@@ -1,4 +1,13 @@
 {
     "select-language": "Select language",
-    "welcome": "Welcome to Resetta"
+    "welcome": "Welcome to Resetta",
+    "valid-email": "Please provide a valid email",
+    "enter-email": "Enter email",
+    "create-pass": "Create password",
+    "enter-pass": "Enter password",
+    "confirm-pass": "Confirm password",
+    "signup": "Sign Up",
+    "member": "Already a member? Sign in",
+    "create-account": "New to Resetta? Create an account",
+    "login": "Log In"
 }
