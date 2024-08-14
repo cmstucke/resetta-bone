@@ -5,6 +5,7 @@ import { signup, login, clearSessionErrors } from '../../store/session';
 import i18next, { languageResources } from "../../services/i18next"
 import { useTranslation } from 'react-i18next';
 import languageList from "../../services/languagesList.json"
+import { changeLanguage } from 'i18next';
 
 export default function SignUp() {
     const {t} = useTranslation();
@@ -20,6 +21,11 @@ export default function SignUp() {
     // const [photoUrl, setPhotoUrl] = useState(null);
     const errors = useSelector(state => state.errors.session);
     const dispatch = useDispatch();
+
+    const changeLang = (lng) => {
+        i18next.changeLanguage(lng)
+        setVisible(false)
+    }
 
     useEffect(() => {
         return () => {
@@ -69,7 +75,8 @@ export default function SignUp() {
 
             <Modal visible={visible} onRequestClose={() => setVisible(false)}>
                 <View style={styles.languageLists}>
-                    <FlatList data={Object.keys(languageResources)} renderItem={({item}) => <TouchableOpacity>
+                    <FlatList data={Object.keys(languageResources)} renderItem={({item}) => <TouchableOpacity
+                    onPress={() => changeLang(item)}>
                         <Text>{languageList[item].nativeName}</Text>
                     </TouchableOpacity>}/>
                 </View>
