@@ -77,7 +77,7 @@ export default function SignUp() {
                 <View style={styles.languageLists}>
                     <FlatList data={Object.keys(languageResources)} renderItem={({item}) => <TouchableOpacity
                     onPress={() => changeLang(item)}>
-                        <Text>{languageList[item].nativeName}</Text>
+                        <Text style={{padding: 10, color: 'white'}}>{languageList[item].nativeName}</Text>
                     </TouchableOpacity>}/>
                 </View>
             </Modal>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         justifyContent: 'center',
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#6495ED',
         alignItems: 'center'
     },
     formContainer: {
@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
     languageLists: {
         flex: 1,
         justifyContent: 'center',
-        padding: 10,
+        backgroundColor: '#6495ED',
     }
 })
