@@ -1,0 +1,13 @@
+{
+    "welcome": "欢迎来到 Resetta",
+    "select-language": "选择语言",
+    "valid-email": "请输入有效的电子邮件",
+    "enter-email": "输入电子邮件",
+    "create-pass": "创建密码",
+    "enter-pass": "输入密码",
+    "confirm-pass": "确认密码",
+    "signup": "注册",
+    "member": "已经是会员？ 登录",
+    "create-account": "新用户？ 创建账户",
+    "login": "登录"
+}
