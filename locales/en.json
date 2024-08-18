@@ -9,5 +9,6 @@
     "signup": "Sign Up",
     "member": "Already a member? Sign in",
     "create-account": "New to Resetta? Create an account",
-    "login": "Log In"
+    "login": "Log In",
+    "test": "this is a test"
 }
