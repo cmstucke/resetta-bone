@@ -167,7 +167,7 @@ export default function RecordForm() {
     <ScrollView>
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Personal Info</Text>
+          <Text style={styles.headerText}>{t("personal")}</Text>
           <Pressable style={styles.editButton} onPress={() => openModal({
             firstName: record.firstName,
             lastName: record.lastName,
@@ -180,7 +180,7 @@ export default function RecordForm() {
           </Pressable>
         </View>
           <View style={styles.field}>
-          <Text>First Name: </Text>
+          <Text>{t("first-name")}</Text>
           <Text>{record.firstName}</Text>
         </View>
         <View style={styles.field}>
