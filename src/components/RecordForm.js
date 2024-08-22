@@ -184,22 +184,22 @@ export default function RecordForm() {
           <Text>{record.firstName}</Text>
         </View>
         <View style={styles.field}>
-          <Text>Last Name: </Text>
+          <Text>{t("last-name")}</Text>
             <Text>{record.lastName}</Text>
         </View>
         <View style={styles.field}>
-          <Text>Date of Birth: </Text>
+          <Text>{t("DOB")}</Text>
             <Text>{record.dateOfBirth ? new Date(record.dateOfBirth).toLocaleDateString(): 'No Date Set'}</Text>
         </View>
         <View style={styles.field}>
-          <Text>Biological Gender: </Text>
+          <Text>{t("gender")}</Text>
             <Text>{record.biologicalGender}</Text>
         </View>
       </View>
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Habits</Text>
+          <Text style={styles.headerText}>{t("habits")}</Text>
           <Pressable onPress={() => openModal({
             smokingStatus: record.smokingStatus,
             alcoholConsumption: record.alcoholConsumption,
@@ -213,7 +213,7 @@ export default function RecordForm() {
           </Pressable>
         </View>
         <View style={styles.field}>
-          <Text>Smoking Status: </Text>
+          <Text>{t("smoke-status")}</Text>
           <Text>{record.smokingStatus}</Text>
         </View>
         <View style={styles.field}>

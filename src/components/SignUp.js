@@ -14,7 +14,7 @@ export default function SignUp() {
 
     const [isSignUp, setIsSignUp] = useState(true);
     const [email, setEmail] = useState('');
-    // const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState('en');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     // const [image, setImage] = useState(null);
