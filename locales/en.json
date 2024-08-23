@@ -17,5 +17,8 @@
     "DOB": "Date of Birth: ",
     "gender": "Biological Gender: ",
     "habits": "Habits",
-    "smoke-status": "Smoking Status: "
+    "smoke-status": "Smoking Status: ",
+    "condition": "Condition: ",
+    "relation": "Relation: ",
+    "notes": "Notes"
 }

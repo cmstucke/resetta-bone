@@ -261,13 +261,13 @@ export default function RecordForm() {
           <View key={member._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Condition:</Text><Text>{member.condition}</Text>
+                <Text>{t("condition")}</Text><Text>{member.condition}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Relation:</Text><Text>{member.relation}</Text>
+                <Text>{t("relation")}</Text><Text>{member.relation}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Notes:</Text><Text>{member.notes}</Text>
+                <Text>{t("notes")}</Text><Text>{member.notes}</Text>
               </View>
             </View>
             <View style={styles.nestedButtons}>
