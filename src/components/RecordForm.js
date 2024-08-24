@@ -217,11 +217,11 @@ export default function RecordForm() {
           <Text>{record.smokingStatus}</Text>
         </View>
         <View style={styles.field}>
-          <Text>Alcohol Consumption: </Text>
+          <Text>{t("alcohol")}</Text>
             <Text>{record.alcoholConsumption}</Text>
         </View>
         <View style={styles.field}>
-          <Text>Exercise Frequency: </Text>
+          <Text>{t("exercise")}</Text>
             <Text>{record.exerciseFrequency}</Text>
         </View>
       </View>

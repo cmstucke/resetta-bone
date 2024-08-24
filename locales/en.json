@@ -20,5 +20,7 @@
     "smoke-status": "Smoking Status: ",
     "condition": "Condition: ",
     "relation": "Relation: ",
-    "notes": "Notes"
+    "notes": "Notes",
+    "alcohol": "Alcohol Consumption: ",
+    "exercise": "Exercise Frequency"
 }
