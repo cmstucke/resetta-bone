@@ -228,20 +228,20 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Emergency Contacts</Text>
+          <Text style={styles.headerText}>{t("emergency")}</Text>
           <Pressable onPress={() => handleAddToArrayField('emergencyContacts')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.emergencyContacts.map((contact) => (
           <View key={contact._id} style={styles.nestedFields}>
               <View>
                 <View style={styles.field}>
-                  <Text>Name:</Text><Text>{contact.name}</Text>
+                  <Text>{t("name")}</Text><Text>{contact.name}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Phone:</Text><Text>{contact.phone}</Text>
+                  <Text>{t("phone")}</Text><Text>{contact.phone}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Relationship:</Text><Text>{contact.relationship}</Text>
+                  <Text>{t("relationship")}</Text><Text>{contact.relationship}</Text>
                 </View>
               </View>
               <View style={styles.nestedButtons}>
@@ -254,7 +254,7 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Family History</Text>
+          <Text style={styles.headerText}>{t("family-history")}</Text>
           <Pressable onPress={() => handleAddToArrayField('familyHistory')}><Text>{addButton} </Text></Pressable>
         </View>
         {editableRecord?.familyHistory.map((member) => (

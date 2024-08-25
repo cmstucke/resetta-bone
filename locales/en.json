@@ -22,5 +22,10 @@
     "relation": "Relation: ",
     "notes": "Notes",
     "alcohol": "Alcohol Consumption: ",
-    "exercise": "Exercise Frequency"
+    "exercise": "Exercise Frequency",
+    "name": "Name: ",
+    "phone": "Phone: ",
+    "relationship": "Relationship: ",
+    "emergency": "Emergency Contacts",
+    "family-history": "Family History"
 }
