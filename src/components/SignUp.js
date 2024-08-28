@@ -146,7 +146,10 @@ const styles = StyleSheet.create({
     },
     languageLists: {
         flex: 1,
-        justifyContent: 'center',
         backgroundColor: '#6495ED',
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center"
     }
 })

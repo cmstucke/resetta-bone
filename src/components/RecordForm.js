@@ -280,7 +280,7 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Lab Results</Text>
+          <Text style={styles.headerText}>{t("lab-results")}</Text>
           <Pressable onPress={() => handleAddToArrayField('labResults')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.labResults.map((result) => (
@@ -290,13 +290,13 @@ export default function RecordForm() {
                   <Text>Test Name:</Text><Text>{result.testName}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Result:</Text><Text>{result.result}</Text>
+                  <Text>{t("result")}</Text><Text>{result.result}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Date:</Text><Text>{result.date ? new Date(result.date).toLocaleDateString(): 'No Date Set'}</Text>
+                  <Text>{t("date")}</Text><Text>{result.date ? new Date(result.date).toLocaleDateString(): 'No Date Set'}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Notes:</Text><Text>{result.notes}</Text>
+                  <Text>{t("notes")}</Text><Text>{result.notes}</Text>
                 </View>
               </View>
               <View style={styles.nestedButtons}>
@@ -309,17 +309,17 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Immunizations</Text>
+          <Text style={styles.headerText}>{t("immune")}</Text>
           <Pressable onPress={() => handleAddToArrayField('immunizations')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.immunizations.map((vaccine) => (
           <View key={vaccine._id} style={styles.nestedFields}>
               <View>
                 <View style={styles.field}>
-                  <Text>Vaccine:</Text><Text>{vaccine.vaccine}</Text>
+                  <Text>{t("vaccine")}</Text><Text>{vaccine.vaccine}</Text>
                 </View>
                 <View style={styles.field}>
-                  <Text>Date:</Text><Text>{vaccine.date ? new Date(vaccine.date).toLocaleDateString(): 'No Date Set'}</Text>
+                  <Text>{t("date")}</Text><Text>{vaccine.date ? new Date(vaccine.date).toLocaleDateString(): 'No Date Set'}</Text>
                 </View>
               </View>
               <View style={styles.nestedButtons}>
@@ -332,20 +332,20 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Allergies</Text>
+          <Text style={styles.headerText}>{t("allergies")}</Text>
           <Pressable onPress={() => handleAddToArrayField('allergies')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.allergies.map((allergy) => (
           <View key={allergy._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Allergy Name:</Text><Text>{allergy.allergyName}</Text>
+                <Text>{t("allergy-name")}</Text><Text>{allergy.allergyName}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Reaction:</Text><Text>{allergy.reaction}</Text>
+                <Text>{t("reaction")}</Text><Text>{allergy.reaction}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Severity:</Text><Text>{allergy.severity}</Text>
+                <Text>{t("severity")}</Text><Text>{allergy.severity}</Text>
               </View>
             </View>
               <View style={styles.nestedButtons}>
@@ -358,23 +358,23 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Blood Pressures</Text>
+          <Text style={styles.headerText}>{t("blood-pressures")}</Text>
           <Pressable onPress={() => handleAddToArrayField('bloodPressures')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.bloodPressures.map((bloodPressure) => (
           <View key={bloodPressure._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Systolic:</Text><Text>{bloodPressure.systolic}</Text>
+                <Text>{t("systolic")}</Text><Text>{bloodPressure.systolic}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Diastolic:</Text><Text>{bloodPressure.diastolic}</Text>
+                <Text>{t("diastolic")}</Text><Text>{bloodPressure.diastolic}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Date:</Text><Text>{bloodPressure.date ? new Date(bloodPressure.date).toLocaleDateString(): 'No Date Set'}</Text>
+                <Text>{t("date")}</Text><Text>{bloodPressure.date ? new Date(bloodPressure.date).toLocaleDateString(): 'No Date Set'}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Time:</Text><Text>{bloodPressure.time}</Text>
+                <Text>{t("time")}</Text><Text>{bloodPressure.time}</Text>
               </View>
             </View>
               <View style={styles.nestedButtons}>
@@ -387,20 +387,20 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Pre-Existing Conditions</Text>
+          <Text style={styles.headerText}>{t("pre-conditions")}</Text>
           <Pressable onPress={() => handleAddToArrayField('preExistingConditions')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.preExistingConditions.map((condition) => (
           <View key={condition._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Condition Name:</Text><Text>{condition.conditionName}</Text>
+                <Text>{t("condition-name")}</Text><Text>{condition.conditionName}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Diagnosis Date:</Text><Text>{condition.diagnosisDate ? new Date(condition.diagnosisDate).toLocaleDateString(): 'No Date Set'}</Text>
+                <Text>{t("diag-date")}</Text><Text>{condition.diagnosisDate ? new Date(condition.diagnosisDate).toLocaleDateString(): 'No Date Set'}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Notes:</Text><Text>{condition.notes}</Text>
+                <Text>{t("notes")}</Text><Text>{condition.notes}</Text>
               </View>
             </View>
               <View style={styles.nestedButtons}>
@@ -413,20 +413,20 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Medications</Text>
+          <Text style={styles.headerText}>{t("medications")}</Text>
           <Pressable onPress={() => handleAddToArrayField('medications')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.medications.map((medication) => (
           <View key={medication._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Medication Name:</Text><Text>{medication.medicationName}</Text>
+                <Text>{t("med-name")}</Text><Text>{medication.medicationName}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Dosage:</Text><Text>{medication.dosage}</Text>
+                <Text>{t("dosage")}</Text><Text>{medication.dosage}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Frequency:</Text><Text>{medication.frequency}</Text>
+                <Text>{t("frequency")}</Text><Text>{medication.frequency}</Text>
               </View>
             </View>
               <View style={styles.nestedButtons}>
@@ -439,20 +439,20 @@ export default function RecordForm() {
 
       <View style={styles.section}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Procedures:</Text>
+          <Text style={styles.headerText}>{t("procedures")}</Text>
           <Pressable onPress={() => handleAddToArrayField('procedures')}><Text>{addButton}</Text></Pressable>
         </View>
         {editableRecord?.procedures.map((procedure) => (
           <View key={procedure._id} style={styles.nestedFields}>
             <View>
               <View style={styles.field}>
-                <Text>Procedure Name:</Text><Text>{procedure.procedureName}</Text>
+                <Text>{t("proc-name")}</Text><Text>{procedure.procedureName}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Date:</Text><Text>{procedure.date ? new Date(procedure.date).toLocaleDateString(): 'No Date Set'}</Text>
+                <Text>{t("date")}</Text><Text>{procedure.date ? new Date(procedure.date).toLocaleDateString(): 'No Date Set'}</Text>
               </View>
               <View style={styles.field}>
-                <Text>Surgeon:</Text><Text>{procedure.surgeon}</Text>
+                <Text>{t("surgeon")}</Text><Text>{procedure.surgeon}</Text>
               </View>
             </View>
               <View style={styles.nestedButtons}>
