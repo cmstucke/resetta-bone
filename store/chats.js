@@ -4,6 +4,7 @@ const GET_CHATS = 'chats/GET_CHATS';
 const GET_CHAT = 'chats/GET_CHAT';
 const ADD_CHAT = 'chats/ADD_CHAT';
 const EDIT_CHAT = 'chats/EDIT_CHAT';
+const OPEN_CHAT = 'chats/OPEN_CHAT';
 
 const getChats = chats => ({
   type: GET_CHATS,
@@ -23,6 +24,11 @@ const addChat = currentChat => ({
 const editChat = currentChat => ({
   type: EDIT_CHAT,
   currentChat
+});
+
+const openChat = openChat => ({
+  type: OPEN_CHAT,
+  openChat
 });
 
 export const getChatsThunk = () => async dispatch => {
@@ -139,9 +145,14 @@ export const editChatThunk = (id, content) => async dispatch => {
 
 };
 
+export const openChatThunk = open => async dispatch => {
+  return dispatch(openChat(open));
+};
+
 const initialState = {
   chats: [],
   currentChat: null,
+  activeChat: false,
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -157,6 +168,11 @@ const chatReducer = (state = initialState, action) => {
           ...action.currentChat,
           messages: [...action.currentChat.messages]
         }
+      };
+    case OPEN_CHAT:
+      return {
+        ...state,
+        openChat: action.openChat
       };
     default:
       return state;

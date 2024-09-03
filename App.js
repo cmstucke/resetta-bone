@@ -2,7 +2,8 @@ import '@expo/metro-runtime'; //allows for auto refresh on web in development
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
-import Chat from './src/components/chat';
+// import Chat from './src/components/chat';
+import Chat from './src/components/Chat';
 import NavButtons from './src/components/NavButtons';
 import SignUp from './src/components/SignUp';
 import configureStore from './store/store';
@@ -12,6 +13,7 @@ import { getCurrentUser } from './store/session';
 import Profile from './src/components/Profile';
 import RecordForm from './src/components/RecordForm';
 import ScanQR from './src/components/ScanQR';
+import ExpandChat from './src/components/ExpandChat';
 let store = configureStore({});
 
 function App() {
@@ -51,6 +53,7 @@ function App() {
               {pageDisplay()}
             </View>
             <Chat style={{}} />
+            {/* <ExpandChat style={{}} /> */}
             <NavButtons style={{}} page={page} setPage={setPage} />
           </View>
         )}

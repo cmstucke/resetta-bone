@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChatThunk, editChatThunk, getChatsThunk } from '../../../store/chats';
+import { addChatThunk, editChatThunk, getChatsThunk } from '../../store/chats';
+import ExpandChat from './ExpandChat';
 
 const Chat = () => {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ const Chat = () => {
       >
         <Text style={styles.buttonText}>Send</Text>
       </Pressable>
+      <ExpandChat />
     </View>
   );
 };
@@ -87,14 +89,15 @@ const Chat = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: '6rem'
-    // flex: 1,
-    // padding: 20,
-    // backgroundColor: '#f5f5f5',
+    bottom: '8rem',
+    width: '100%',
+    flex: 1,
+    backgroundColor: '#f5f5f5',
   },
   chatContainer: {
+    // width: '10rem'
     // flexGrow: 0,
-    // marginBottom: 20,
+    marginBottom: 20,
   },
   messageContainer: {
     margin: 10
