@@ -50,6 +50,9 @@
     "frequency": "Frequency: ",
     "procedures": "Procedures",
     "proc-name": "Procedure Name",
-    "surgeon": "Surgeon: "
-
+    "surgeon": "Surgeon: ",
+    "request-permission": "Requesting for camera permission",
+    "deny-permission": "Camera permission not granted",
+    "scan": "Scan QR",
+    "go-back": "Go Back"
 }
