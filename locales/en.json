@@ -54,5 +54,7 @@
     "request-permission": "Requesting for camera permission",
     "deny-permission": "Camera permission not granted",
     "scan": "Scan QR",
-    "go-back": "Go Back"
+    "go-back": "Go Back",
+    "profile": "Profile",
+    "logout": "Logout"
 }

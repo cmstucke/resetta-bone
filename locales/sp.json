@@ -50,5 +50,11 @@
     "frequency": "Frecuencia: ",
     "procedures": "Procedimientos",
     "proc-name": "Nombre del Procedimiento",
-    "surgeon": "Cirujano: "
+    "surgeon": "Cirujano: ",
+    "request-permission": "Solicitando permiso para la cámara",
+    "deny-permission": "Permiso de cámara no concedido",
+    "scan": "Escanear QR",
+    "go-back": "Volver",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión"
 }

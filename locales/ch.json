@@ -50,5 +50,11 @@
     "frequency": "频率: ",
     "procedures": "手术",
     "proc-name": "手术名称",
-    "surgeon": "外科医生: "
+    "surgeon": "外科医生: ",
+    "request-permission": "请求相机权限",
+    "deny-permission": "未授予相机权限",
+    "scan": "扫描二维码",
+    "go-back": "返回",
+    "profile": "个人资料",
+    "logout": "退出登录"
 }
