@@ -21,11 +21,13 @@ const ExpandChat = () => {
   };
 
   return (
+    <View>
     <Pressable onPress={handleOpenChat} styles={styles.openChatPressable}>
       <Text styles={styles.openChatText}>
         Assistant ^
       </Text>
     </Pressable>
+    </View>
   )
 }
 
@@ -33,13 +35,14 @@ export default ExpandChat
 
 const styles = StyleSheet.create({
   openChatPressable: {
-    // position: 'absolute',
-    // bottom: '5rem',
-    // width: '100%',
-    // flex: 1,
-    // justifyContent: 'center',
+    backgroundColor: '#6495ED',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginHorizontal: 10
   },
   openChatText: {
-
+    color: '#fff',
+    fontSize: 16,
   }
 });
