@@ -1,28 +1,30 @@
 import '@expo/metro-runtime'; //allows for auto refresh on web in development
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
-// import Chat from './src/components/chat';
-import Chat from './src/components/Chat';
-import NavButtons from './src/components/NavButtons';
-import SignUp from './src/components/SignUp';
-import configureStore from './store/store';
+import { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { getCurrentUser } from './store/session';
+import Chat from './src/components/Chat';
+import ExpandChat from './src/components/ExpandChat';
+import NavButtons from './src/components/NavButtons';
 import Profile from './src/components/Profile';
 import RecordForm from './src/components/RecordForm';
 import ScanQR from './src/components/ScanQR';
-import ExpandChat from './src/components/ExpandChat';
+import SignUp from './src/components/SignUp';
+import { getCurrentUser } from './store/session';
+import configureStore from './store/store';
 let store = configureStore({});
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const currentUser = useSelector(state => state.session.user);
   const currentRecord = useSelector(state => state.entities.records)
+  const activeChat = useSelector(state => state.chats.activeChat);
+  // console.log('ACTIVE CHAT:', activeChat);
   const dispatch = useDispatch();
 
   const [page, setPage] = useState('record');
+  // const [chatVis, setChatVis] = useState(false);
+  // console.log('CHAT VIS:', chatVis);
 
   const pageDisplay = () => {
     if (page === 'record') {
@@ -34,10 +36,14 @@ function App() {
     }
   }
 
-
   useEffect(() => {
-    dispatch(getCurrentUser()).then(() => setLoaded(true));
+    dispatch(getCurrentUser())
+    .then(() => setLoaded(true));
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   setChatVis(activeChat);
+  // }, [activeChat]);
 
   return loaded && (
     <View style={styles.container}>
@@ -52,16 +58,16 @@ function App() {
             <View style={{ flex: 1, marginBottom: 100, width: Dimensions.get('window').width }}>
               {pageDisplay()}
             </View>
-            <Chat style={{}} />
-            {/* <ExpandChat style={{}} /> */}
+            {activeChat && <Chat style={{}} />}
+            {/* <Chat style={{}} /> */}
+            <ExpandChat style={{}} />
             <NavButtons style={{}} page={page} setPage={setPage} />
           </View>
         )}
       <StatusBar style="auto" />
     </View>
   );
-
-}
+};
 
 
 export default function Root() {
@@ -70,7 +76,7 @@ export default function Root() {
       <App />
     </Provider>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -83,5 +89,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
 });

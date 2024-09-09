@@ -81,7 +81,7 @@ const Chat = () => {
       >
         <Text style={styles.buttonText}>Send</Text>
       </Pressable>
-      <ExpandChat />
+      {/* <ExpandChat /> */}
     </View>
   );
 };
@@ -89,13 +89,13 @@ const Chat = () => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: '8rem',
+    bottom: '8.75rem',
     width: '100%',
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
   chatContainer: {
-    // width: '10rem'
+    width: '10rem',
     // flexGrow: 0,
     marginBottom: 20,
   },
