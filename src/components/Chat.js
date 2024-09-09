@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   chatContainer: {
-    width: '10rem',
+    // width: '10rem',
     // flexGrow: 0,
     marginBottom: 20,
   },

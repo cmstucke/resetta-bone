@@ -172,7 +172,7 @@ const chatReducer = (state = initialState, action) => {
     case OPEN_CHAT:
       return {
         ...state,
-        openChat: action.openChat
+        activeChat: action.openChat
       };
     default:
       return state;

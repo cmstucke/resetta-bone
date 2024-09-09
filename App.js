@@ -10,6 +10,7 @@ import Profile from './src/components/Profile';
 import RecordForm from './src/components/RecordForm';
 import ScanQR from './src/components/ScanQR';
 import SignUp from './src/components/SignUp';
+import { openChatThunk } from './store/chats';
 import { getCurrentUser } from './store/session';
 import configureStore from './store/store';
 let store = configureStore({});
@@ -41,9 +42,9 @@ function App() {
     .then(() => setLoaded(true));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   setChatVis(activeChat);
-  // }, [activeChat]);
+  const toggleChat = () => {
+    dispatch(openChatThunk(!activeChat));
+  };
 
   return loaded && (
     <View style={styles.container}>
@@ -59,8 +60,7 @@ function App() {
               {pageDisplay()}
             </View>
             {activeChat && <Chat style={{}} />}
-            {/* <Chat style={{}} /> */}
-            <ExpandChat style={{}} />
+            <ExpandChat activeChat={activeChat} toggleChat={toggleChat} />
             <NavButtons style={{}} page={page} setPage={setPage} />
           </View>
         )}

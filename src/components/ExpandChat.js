@@ -3,33 +3,18 @@ import { Pressable, Text, StyleSheet, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import {openChatThunk} from '../../store/chats';
 
-const ExpandChat = () => {
-
-  const dispatch = useDispatch();
-  const openChat = useSelector(state => (
-    state.chats ? state.chats?.openChat : false
-  ));
-
-  const handleOpenChat = async e => {
-    e.preventDefault();
-
-    if (openChat) {
-      await dispatch(openChatThunk(false));
-    } else {
-      await dispatch(openChatThunk(true));
-    };
-  };
+const ExpandChat = ({ activeChat, toggleChat }) => {
 
   return (
     <View style={styles.container}>
-    <Pressable onPress={handleOpenChat} style={styles.openChatPressable}>
-      <Text style={styles.openChatText}>
-        Assistant ^
-      </Text>
-    </Pressable>
+      <Pressable onPress={toggleChat} style={styles.openChatPressable}>
+        <Text style={styles.openChatText}>
+          {activeChat ? 'Close Assistant ^' : 'Assistant ^'}
+        </Text>
+      </Pressable>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
