@@ -56,5 +56,7 @@
     "scan": "Scan QR",
     "go-back": "Go Back",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "record": "My Record",
+    "code": "QR code"
 }
