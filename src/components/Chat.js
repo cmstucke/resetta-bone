@@ -5,11 +5,8 @@ import { addChatThunk, editChatThunk, getChatsThunk } from '../../store/chats';
 import ExpandChat from './ExpandChat';
 
 const Chat = () => {
-  const dispatch = useDispatch();
 
-  const chats = useSelector(state => (
-    state.chats ? state.chats : null
-  ));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getChatsThunk());
@@ -48,15 +45,16 @@ const Chat = () => {
     if (editRes) {
       setCurrChat({ ...editRes, messages: editRes.messages });
     };
+    
   };
 
-  const screenHeight = Dimensions.get('window').height;
-  const chatContainerHeight = screenHeight / 2;
+  const screenHt = Dimensions.get('window').height;
+  const chatContainerHt = screenHt / 2;
 
   return (
     <View style={styles.container}>
       {currChat &&
-        <ScrollView style={[styles.chatContainer, { maxHeight: chatContainerHeight }]}>
+        <ScrollView style={[styles.chatContainer, { maxHeight: chatContainerHt }]}>
           <FlatList
             data={currChat.messages}
             keyExtractor={(item, index) => index.toString()}
