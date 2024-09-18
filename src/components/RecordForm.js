@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Pressable, TextInput, SafeAreaView, StyleSheet}
 import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchCurrentUserRecord } from '../../store/records';
+import { fetchCurrentUserRecord, fetchRecord } from '../../store/records';
 import { updateRecord } from '../../store/records';
 import RecordFormModal from './RecordFormModal'
 import Feather from '@expo/vector-icons/Feather';
@@ -10,7 +10,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 
-export default function RecordForm() {
+export default function RecordForm({recordId}) {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
@@ -19,10 +19,16 @@ export default function RecordForm() {
   const [editableFields, setEditableFields] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [saveFunction, setSaveFunction] = useState(null);
+  const [myPage, setMyPage] = useState(false);
 
 
   useEffect(()=> {
-    dispatch(fetchCurrentUserRecord());
+    if(!recordId){
+      dispatch(fetchCurrentUserRecord());
+      setMyPage(true);
+    } else {
+      dispatch(fetchRecord(recordId))
+    }
   }, []);
 
   useEffect(()=> {
@@ -168,7 +174,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("personal")}</Text>
-          <Pressable style={styles.editButton} onPress={() => openModal({
+          {myPage && <Pressable style={styles.editButton} onPress={() => openModal({
             firstName: record.firstName,
             lastName: record.lastName,
             dateOfBirth: record.dateOfBirth,
@@ -177,7 +183,7 @@ export default function RecordForm() {
               <Text style={styles.editText}>
                 {editButton}
               </Text>
-          </Pressable>
+          </Pressable>}
         </View>
           <View style={styles.field}>
           <Text>{t("first-name")}</Text>
@@ -200,7 +206,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("habits")}</Text>
-          <Pressable onPress={() => openModal({
+          {myPage && <Pressable onPress={() => openModal({
             smokingStatus: record.smokingStatus,
             alcoholConsumption: record.alcoholConsumption,
             exerciseFrequency: record.exerciseFrequency
@@ -210,7 +216,7 @@ export default function RecordForm() {
                 {editButton}
               </Text>
             </Text>
-          </Pressable>
+          </Pressable>}
         </View>
         <View style={styles.field}>
           <Text>{t("smoke-status")}</Text>
@@ -229,7 +235,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("emergency")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('emergencyContacts')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('emergencyContacts')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.emergencyContacts.map((contact) => (
           <View key={contact._id} style={styles.nestedFields}>
@@ -245,8 +251,8 @@ export default function RecordForm() {
                 </View>
               </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({name: contact.name, phone: contact.phone, relationship: contact.relationship}, handleArraySave('emergencyContacts', contact._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('emergencyContacts', contact._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({name: contact.name, phone: contact.phone, relationship: contact.relationship}, handleArraySave('emergencyContacts', contact._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('emergencyContacts', contact._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -255,7 +261,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("family-history")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('familyHistory')}><Text>{addButton} </Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('familyHistory')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.familyHistory.map((member) => (
           <View key={member._id} style={styles.nestedFields}>
@@ -271,8 +277,8 @@ export default function RecordForm() {
               </View>
             </View>
             <View style={styles.nestedButtons}>
-              <Pressable onPress={() => openModal({condition: member.condition, relation: member.relation, notes: member.notes}, handleArraySave('familyHistory', member._id))}><Text>{editButton}</Text></Pressable>
-              <Pressable onPress={() => handleArrayDelete('familyHistory', member._id)}><Text>{deleteButton}</Text></Pressable>
+              {myPage && <Pressable onPress={() => openModal({condition: member.condition, relation: member.relation, notes: member.notes}, handleArraySave('familyHistory', member._id))}><Text>{editButton}</Text></Pressable>}
+              {myPage && <Pressable onPress={() => handleArrayDelete('familyHistory', member._id)}><Text>{deleteButton}</Text></Pressable>}
             </View>
           </View>
         ))}
@@ -281,7 +287,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("lab-results")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('labResults')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('labResults')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.labResults.map((result) => (
           <View key={result._id} style={styles.nestedFields}>
@@ -300,8 +306,8 @@ export default function RecordForm() {
                 </View>
               </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({testName: result.testName, result: result.result, date: result.date, notes: result.notes}, handleArraySave('labResults', result._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('labResults', result._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({testName: result.testName, result: result.result, date: result.date, notes: result.notes}, handleArraySave('labResults', result._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('labResults', result._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -310,7 +316,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("immune")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('immunizations')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('immunizations')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.immunizations.map((vaccine) => (
           <View key={vaccine._id} style={styles.nestedFields}>
@@ -323,8 +329,8 @@ export default function RecordForm() {
                 </View>
               </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({vaccine: vaccine.vaccine, date: vaccine.date}, handleArraySave('immunizations', vaccine._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('immunizations', vaccine._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({vaccine: vaccine.vaccine, date: vaccine.date}, handleArraySave('immunizations', vaccine._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('immunizations', vaccine._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -333,7 +339,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("allergies")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('allergies')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('allergies')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.allergies.map((allergy) => (
           <View key={allergy._id} style={styles.nestedFields}>
@@ -349,8 +355,8 @@ export default function RecordForm() {
               </View>
             </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({allergyName: allergy.allergyName, reaction: allergy.reaction, severity: allergy.severity}, handleArraySave('allergies', allergy._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('allergies', allergy._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({allergyName: allergy.allergyName, reaction: allergy.reaction, severity: allergy.severity}, handleArraySave('allergies', allergy._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('allergies', allergy._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -359,7 +365,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("blood-pressures")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('bloodPressures')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('bloodPressures')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.bloodPressures.map((bloodPressure) => (
           <View key={bloodPressure._id} style={styles.nestedFields}>
@@ -378,8 +384,8 @@ export default function RecordForm() {
               </View>
             </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({systolic: bloodPressure.systolic, diastolic: bloodPressure.diastolic, date: bloodPressure.date, time: bloodPressure.time}, handleArraySave('bloodPressures', bloodPressure._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('bloodPressures', bloodPressure._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({systolic: bloodPressure.systolic, diastolic: bloodPressure.diastolic, date: bloodPressure.date, time: bloodPressure.time}, handleArraySave('bloodPressures', bloodPressure._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('bloodPressures', bloodPressure._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -388,7 +394,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("pre-conditions")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('preExistingConditions')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('preExistingConditions')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.preExistingConditions.map((condition) => (
           <View key={condition._id} style={styles.nestedFields}>
@@ -404,8 +410,8 @@ export default function RecordForm() {
               </View>
             </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({conditionName: condition.conditionName, diagnosisDate: condition.diagnosisDate, notes: condition.notes}, handleArraySave('preExistingConditions', condition._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('preExistingConditions', condition._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({conditionName: condition.conditionName, diagnosisDate: condition.diagnosisDate, notes: condition.notes}, handleArraySave('preExistingConditions', condition._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('preExistingConditions', condition._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -414,7 +420,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("medications")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('medications')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('medications')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.medications.map((medication) => (
           <View key={medication._id} style={styles.nestedFields}>
@@ -430,8 +436,8 @@ export default function RecordForm() {
               </View>
             </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({medicationName: medication.medicationName, dosage: medication.dosage, frequency: medication.frequency}, handleArraySave('medications', medication._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('medications', medication._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({medicationName: medication.medicationName, dosage: medication.dosage, frequency: medication.frequency}, handleArraySave('medications', medication._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('medications', medication._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}
@@ -440,7 +446,7 @@ export default function RecordForm() {
       <View style={styles.section}>
         <View style={styles.header}>
           <Text style={styles.headerText}>{t("procedures")}</Text>
-          <Pressable onPress={() => handleAddToArrayField('procedures')}><Text>{addButton}</Text></Pressable>
+          {myPage && <Pressable onPress={() => handleAddToArrayField('procedures')}><Text>{addButton}</Text></Pressable>}
         </View>
         {editableRecord?.procedures.map((procedure) => (
           <View key={procedure._id} style={styles.nestedFields}>
@@ -456,8 +462,8 @@ export default function RecordForm() {
               </View>
             </View>
               <View style={styles.nestedButtons}>
-                <Pressable onPress={() => openModal({procedureName: procedure.procedureName, date: procedure.date, surgeon: procedure.surgeon}, handleArraySave('procedures', procedure._id))}><Text>{editButton}</Text></Pressable>
-                <Pressable onPress={() => handleArrayDelete('procedures', procedure._id)}><Text>{deleteButton}</Text></Pressable>
+                {myPage && <Pressable onPress={() => openModal({procedureName: procedure.procedureName, date: procedure.date, surgeon: procedure.surgeon}, handleArraySave('procedures', procedure._id))}><Text>{editButton}</Text></Pressable>}
+                {myPage && <Pressable onPress={() => handleArrayDelete('procedures', procedure._id)}><Text>{deleteButton}</Text></Pressable>}
               </View>
           </View>
         ))}

@@ -47,7 +47,7 @@ function App(){
         )
        : (
         <View style={styles.content}>
-          <View style={{flex: 1, marginBottom:100, width: Dimensions.get('window').width}}>
+          <View style={{overflowY:'auto', height: '88vh', marginBottom:65, width: '100%'}}>
             {pageDisplay()}
           </View>
           <NavButtons style={{}} page={page} setPage={setPage}/>
@@ -72,13 +72,16 @@ export default function Root() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: Dimensions.get('window').width,
+    width: '100%',
+    alignItems:'center',
     justifyContent: 'flex-end', // Ensure content is pushed up
   },
   content: {
     flex: 1, // Take up remaining space
     justifyContent: 'center',
     alignItems: 'center',
+    width: Dimensions.get('window').width,
+    maxWidth: '700px'
   },
 
 });

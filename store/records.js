@@ -35,7 +35,7 @@ export const fetchCurrentUserRecord = () => async dispatch => {
 }
 export const fetchRecord = (userId) => async dispatch => {
   try {
-    const res = await jwtFetch(`/api/records/${userId}`)
+    const res = await jwtFetch(`/api/records/userId/${userId}`)
     const record = await res.json();
     dispatch(receiveRecord(record));
   } catch (error) {
