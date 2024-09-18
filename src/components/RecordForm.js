@@ -2,7 +2,7 @@ import { View, Text, ScrollView, Pressable, TextInput, SafeAreaView, StyleSheet}
 import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchCurrentUserRecord, fetchRecord } from '../../store/records';
+import { fetchCurrentUserRecord, fetchRecord, fetchRecordByUserId } from '../../store/records';
 import { updateRecord } from '../../store/records';
 import RecordFormModal from './RecordFormModal'
 import Feather from '@expo/vector-icons/Feather';
@@ -10,11 +10,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 
-export default function RecordForm({recordId}) {
+export default function RecordForm({userId}) {
   const {t} = useTranslation();
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
-  const record = useSelector(state => state.entities.records[currentUser._id]);
+  const record = useSelector(state => state.entities.records[userId || currentUser._id]);
   const [editableRecord, setEditableRecord] = useState(record);
   const [editableFields, setEditableFields] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,13 +23,14 @@ export default function RecordForm({recordId}) {
 
 
   useEffect(()=> {
-    if(!recordId){
+    if(!userId){
       dispatch(fetchCurrentUserRecord());
       setMyPage(true);
     } else {
-      dispatch(fetchRecord(recordId))
+      dispatch(fetchRecordByUserId(userId))
+      setMyPage(false);
     }
-  }, []);
+  }, [userId]);
 
   useEffect(()=> {
     setEditableRecord(record);

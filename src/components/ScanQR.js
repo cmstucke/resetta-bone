@@ -6,6 +6,7 @@ import logo from '../../assets/resetta-bone-logo.png';
 import { Camera, CameraView } from 'expo-camera';
 import RecordForm from './RecordForm';
 import { updateCurrentUserScannedRecords } from '../../store/session';
+import moment from 'moment';
 // import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function ScanQR() {
@@ -13,6 +14,7 @@ export default function ScanQR() {
     const [hasPermission, setHasPermission] = useState(false);
     const [scanned, setScanned] = useState(false);
     const [scannedData, setScannedData] = useState('');
+    const [currentRecord, setCurrentRecord] = useState('');
     const [page, setPage] = useState('my-qr') //or 'camera' or 'scan history' or 'my-qr'
     const dispatch = useDispatch();
 
@@ -33,6 +35,13 @@ export default function ScanQR() {
         dispatch(updateCurrentUserScannedRecords(data));
         // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
+    const isExpired = (dateTime) => {
+        const now = new Date();
+        const givenTime = new Date(dateTime);
+        const diffInMS = now - givenTime; //difference in ms
+        const diffInHours = diffInMS / (1000 * 60 * 60) //convert ms to hours
+        return diffInHours > 2;
+    } 
 
     if (page === 'camera' && hasPermission === null) {
         return <Text>Requesting for camera permission</Text>;
@@ -44,7 +53,10 @@ export default function ScanQR() {
     }
     if(scannedData){
         return (
-            <RecordForm recordId={scannedData}/>
+            <View>
+                <RecordForm userId={scannedData}/>
+                <Pressable onPress={()=> setScannedData('')}><Text>Go Back</Text></Pressable>
+            </View>
         )
     }
 
@@ -83,7 +95,15 @@ export default function ScanQR() {
             </View>):
             //page === 'scan-history'
             (<View>
-
+                <View>
+                    {sessionUser.scannedRecords.map((record) => (
+                        <Pressable key={record._id} onPress={()=> setScannedData(record.recordUserId)} disabled={isExpired(record.scannedAt)}>
+                            <Text>{moment(record.scannedAt).format("hh:mm:ss MMM/DD/YYYY")}</Text>
+                            <Text>{record.fullName}</Text>
+                            {isExpired(record.scannedAt) && <Text>Expired</Text>}
+                        </Pressable>
+                    ))}
+                </View>
 
                 <View style={{flex: 2}}> 
                     <Pressable onPress={()=> setPage('my-qr')}><Text>Go Back</Text></Pressable>

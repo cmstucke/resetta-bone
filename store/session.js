@@ -88,9 +88,9 @@ export const getCurrentUser = () => async dispatch => {
   }
 };
 
-export const updateCurrentUserScannedRecords = (recordId) => async dispatch => {
+export const updateCurrentUserScannedRecords = (userId) => async dispatch => {
   try{
-    const res = await jwtFetch(`/api/users/scan/${recordId}`, {
+    const res = await jwtFetch(`/api/users/scan/${userId}`, {
       method: 'PATCH'
     });
     const user = await res.json();
