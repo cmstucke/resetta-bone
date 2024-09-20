@@ -33,12 +33,27 @@ export const fetchCurrentUserRecord = () => async dispatch => {
     }
   }
 }
-export const fetchRecord = (userId) => async dispatch => {
+export const fetchRecordByUserId = (userId) => async dispatch => {
   try {
-    const res = await jwtFetch(`/api/records/${userId}`)
+    const res = await jwtFetch(`/api/records/userId/${userId}`)
     const record = await res.json();
     dispatch(receiveRecord(record));
   } catch (error) {
+    console.log(error)
+    const resBody = await error.json();
+    if (resBody.statusCode === 400){
+      dispatch(receiveErrors(resBody.errors));
+    }
+  }
+}
+
+export const fetchRecord = (recordId) => async dispatch => {
+  try {
+    const res = await jwtFetch(`/api/records/${recordId}`)
+    const record = await res.json();
+    dispatch(receiveRecord(record));
+  } catch (error) {
+    console.log(error)
     const resBody = await error.json();
     if (resBody.statusCode === 400){
       dispatch(receiveErrors(resBody.errors));
