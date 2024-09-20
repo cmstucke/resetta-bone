@@ -48,31 +48,24 @@ function App() {
 
   return loaded && (
     <View style={styles.container}>
-      {!currentUser ?
-        (
-        <View style={styles.content}> 
+      {!currentUser ? (
+        <View style={styles.content}>
           <SignUp />
         </View>
-        )
-       : (
+      ) : (
         <View style={styles.content}>
-          <View style={{overflowY:'auto', height: '88vh', marginBottom:65, width: '100%'}}>
+          <View style={{ flex: 1, marginBottom: 100, width: Dimensions.get('window').width }}>
             {pageDisplay()}
           </View>
-        )
-        : (
-          <View style={styles.content}>
-            <View style={{ flex: 1, marginBottom: 100, width: Dimensions.get('window').width }}>
-              {pageDisplay()}
-            </View>
-            {activeChat && <Chat style={{}} />}
-            <ExpandChat activeChat={activeChat} toggleChat={toggleChat} />
-            <NavButtons style={{}} page={page} setPage={setPage} />
-          </View>
-        )}
+          {activeChat && <Chat style={{}} />}
+          <ExpandChat activeChat={activeChat} toggleChat={toggleChat} />
+          <NavButtons style={{}} page={page} setPage={setPage} />
+        </View>
+      )}
       <StatusBar style="auto" />
     </View>
   );
+  
 };
 
 
