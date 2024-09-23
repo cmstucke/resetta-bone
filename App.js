@@ -19,6 +19,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const currentUser = useSelector(state => state.session.user);
   const currentRecord = useSelector(state => state.entities.records)
+  const currChat = useSelector(state => state.chats.currentChat);
   const activeChat = useSelector(state => state.chats.activeChat);
   // console.log('ACTIVE CHAT:', activeChat);
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ function App() {
             {pageDisplay()}
           </View>
           {activeChat && <Chat style={{}} />}
-          <ExpandChat activeChat={activeChat} toggleChat={toggleChat} />
+          <ExpandChat activeChat={activeChat} toggleChat={toggleChat} currChat={currChat}/>
           <NavButtons style={{}} page={page} setPage={setPage} />
         </View>
       )}

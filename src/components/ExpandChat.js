@@ -1,7 +1,5 @@
-import React from 'react'
-import { Pressable, Text, StyleSheet, View } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
-import {openChatThunk} from '../../store/chats';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 const ExpandChat = ({ activeChat, toggleChat }) => {
 
@@ -14,6 +12,7 @@ const ExpandChat = ({ activeChat, toggleChat }) => {
       </Pressable>
     </View>
   );
+
 };
 
 const styles = StyleSheet.create({

@@ -7,9 +7,12 @@ const Chat = () => {
 
   const dispatch = useDispatch();
 
+  const currentChat = useSelector(state => state.chats.currentChat);
+
   useEffect(() => {
     dispatch(getChatsThunk());
-  }, []);
+    if (currentChat) setCurrChat(currentChat);
+  }, [currentChat]);
 
   const [chatInput, setChatInput] = useState('');
   const [currChat, setCurrChat] = useState(null);
@@ -82,7 +85,7 @@ const Chat = () => {
       {/* <ExpandChat /> */}
     </View>
   );
-  
+
 };
 
 const styles = StyleSheet.create({

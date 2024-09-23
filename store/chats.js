@@ -89,10 +89,9 @@ export const addChatThunk = content => async dispatch => {
 
     if (res.ok) {
 
-      const data = await res.json();
-      console.log('DATA:', data);
-      dispatch(addChat(data));
-      return data;
+      const { newChat } = await res.json();
+      console.log('DATA:', newChat);
+      return dispatch(addChat(newChat));;
       
     } else {
       
